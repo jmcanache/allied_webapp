@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  email: MyString
+  hotel_id: 
+  single: MyString
+  double: MyString
+  datein: 2016-01-25
+  dateout: 2016-01-25
+  creditcard: MyString
+  flight_type: MyString
+  airport: MyString
+
+two:
+  email: MyString
+  hotel_id: 
+  single: MyString
+  double: MyString
+  datein: 2016-01-25
+  dateout: 2016-01-25
+  creditcard: MyString
+  flight_type: MyString
+  airport: MyString

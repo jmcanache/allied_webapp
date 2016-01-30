@@ -1,0 +1,56 @@
+<h1>Booking</h1>
+
+<%= form_for @booking, url: {action: "create"} do |b| %>
+
+	<%= b.label :email %>:
+	<%= b.email_field :email %>
+
+	<%= b.label :flight_type %>:
+	<%= b.text_field :flight_type %>
+
+	<%= b.label :airport %>:
+	<%= b.select :airport, options_for_select(["MIA", "FORT"], selected: "MIA") %>
+
+	<%= b.label :hotel %>:
+	<%= b.select :hotel_id, options_from_collection_for_select(@hotels, "id", "name")%>
+
+	<%= b.label :single %>:
+	<%= b.number_field :single, min:0 %>
+
+	<%= b.label :double %>:
+	<%= b.number_field :double, min:0 %>
+
+	<%= b.text_field :datein, as: :datepicker, :placeholder => 'CheckIn' %>
+
+	<%= b.text_field :dateout, as: :datepicker, :placeholder => 'CheckOut' %>
+
+	<%= b.label :creditcard %>:
+	<%= b.text_field :creditcard %>
+
+	<%= b.label :comments %>:
+	<%= b.text_area :comments %>
+
+	<%= b.submit %>
+<% end %>
+
+<% if @booking.errors.any? %>
+	<div id="error_explanation">
+	  <h2><%= pluralize(@booking.errors.count, "error") %> 
+	    prohibited this post from being saved:</h2>
+
+	  <ul>
+	  <% @booking.errors.full_messages.each do |message| %>
+	    <li><%= message %></li>
+	  <% end %>
+	  </ul>
+	</div>
+<% end %>
+
+<script type="text/javascript">
+ $(function() {
+    $( "#booking_datein" ).datepicker({ minDate: 0, maxDate: "+3M +10D" });
+  });
+  $(function() {
+    $( "#booking_dateout" ).datepicker({ minDate: 0, maxDate: "+3M +10D" });
+  });
+</script>

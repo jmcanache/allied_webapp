@@ -13,5 +13,5 @@ class Booking < ActiveRecord::Base
   validates :comments,
   			length: { maximum: 300 }
 
-  scope :between, -> (datein, dateout) { where( "bookings.datein between '#{datein}' AND '#{dateout}' OR bookings.dateout between '#{datein}' AND '#{dateout}'") }
+  scope :between, -> (datein, dateout) { where( "bookings.datein < '#{dateout}' AND bookings.dateout > '#{datein}'") }
 end

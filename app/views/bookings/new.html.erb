@@ -20,9 +20,9 @@
 	<%= b.label :double %>:
 	<%= b.number_field :double, min:0 %>
 
-	<%= b.text_field :datein, as: :datepicker, :placeholder => 'CheckIn' %>
+	<%= b.date_field :datein, as: :datepicker, :placeholder => 'CheckIn' %>
 
-	<%= b.text_field :dateout, as: :datepicker, :placeholder => 'CheckOut' %>
+	<%= b.date_field :dateout, as: :datepicker, :placeholder => 'CheckOut' %>
 
 	<%= b.label :creditcard %>:
 	<%= b.text_field :creditcard %>

@@ -6,18 +6,22 @@ class BookingsController < ApplicationController
   end
 
   def create
-     @booking = Booking.new(booking_params)
-     if @booking.save
-        redirect_to :action => 'new'
-     else
-        @hotels = Hotel.all
-        render :action => 'new'
-     end
-  end
+    current_datein = booking_params[:datein].to_date
+    current_dateout = booking_params[:dateout].to_date
+    datein_ok = dateout_ok = false
 
-  private
-  def booking_params
-     params.require(:booking).permit(:email, :flight_type, :airport, :hotel_id, :single, :double, :datein, :dateout, :creditcard)
+    Booking.where(:status => 1).find_each do |booking|
+      datein_ok = Time.now.between?(booking[:datein],booking[:dateout])
+      dateout_ok = current_dateout.between?(booking[:datein],booking[:dateout])
+
+      if datein_ok or dateout_ok
+        #Rebota al usuario. No procesa.
+      else
+        #Procede, envia email y guarda
+        end
+      end
+
+    end
   end
 
   def edit
@@ -27,5 +31,10 @@ class BookingsController < ApplicationController
   end
 
   def delete
+  end
+
+  private
+  def booking_params
+    params.require(:booking).permit(:email, :flight_type, :airport, :hotel_id, :single, :double, :datein, :dateout, :creditcard)
   end
 end

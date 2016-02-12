@@ -11,13 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160208180826) do
+ActiveRecord::Schema.define(version: 20160211214840) do
 
   create_table "bookings", force: :cascade do |t|
     t.string   "email",       limit: 255
     t.integer  "hotel_id",    limit: 4
-    t.string   "single",      limit: 255
-    t.string   "double",      limit: 255
+    t.integer  "single",      limit: 4
+    t.integer  "double",      limit: 4
     t.date     "datein"
     t.date     "dateout"
     t.string   "creditcard",  limit: 255
@@ -34,8 +34,8 @@ ActiveRecord::Schema.define(version: 20160208180826) do
   create_table "hotels", force: :cascade do |t|
     t.string   "name",       limit: 255
     t.string   "email",      limit: 255
-    t.string   "single",     limit: 255
-    t.string   "double",     limit: 255
+    t.integer  "single",     limit: 4
+    t.integer  "double",     limit: 4
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end

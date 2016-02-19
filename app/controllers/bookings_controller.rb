@@ -2,7 +2,6 @@ class BookingsController < ApplicationController
   def new
     @booking = Booking.new
   	@hotels = Hotel.all
-
   end
 
   def create
@@ -40,6 +39,7 @@ class BookingsController < ApplicationController
     if new_booking
       @booking = Booking.new(booking_params)
       if @booking.save
+        Notifier.send_booking_request(hotel, @booking).deliver_now
         redirect_to :action => 'new'
       else
          @hotels = Hotel.all

@@ -5,7 +5,7 @@
 	<%= b.label :email %>:
 	<%= b.email_field :email %>
 
-	<%= b.label :flight_type %>:
+	<%= b.label :flight_number %>:
 	<%= b.text_field :flight_type %>
 
 	<%= b.label :airport %>:
@@ -54,3 +54,43 @@
     $( "#booking_dateout" ).datepicker({ minDate: 0, maxDate: "+3M +10D", dateFormat: 'yy/mm/dd' });
   });
 </script>
+
+<div class="container">
+  <h2>Bootstrap Mixed Form <p class="lead">with horizontal and inline fields</p></h2>
+  <form role="form" class="form-horizontal">
+    <div class="form-group">
+      <label class="col-sm-1" for="inputEmail1">Email</label>
+      <div class="col-sm-5"><input class="form-control" id="inputEmail1" placeholder="Email" type="email"></div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-1" for="inputPassword1">Password</label>
+      <div class="col-sm-5"><input class="form-control" id="inputPassword1" placeholder="Password" type="password"></div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-12" for="TextArea">Textarea</label>
+      <div class="col-sm-6"><textarea class="form-control" id="TextArea"></textarea></div>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-3"><label>First name</label><input class="form-control" placeholder="First" type="text"></div>
+      <div class="col-sm-3"><label>Last name</label><input class="form-control" placeholder="Last" type="text"></div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-12">Phone number</label>
+      <div class="col-sm-1"><input class="form-control" placeholder="000" type="text"><div class="help">area</div></div>
+      <div class="col-sm-1"><input class="form-control" placeholder="000" type="text"><div class="help">local</div></div>
+      <div class="col-sm-2"><input class="form-control" placeholder="1111" type="text"><div class="help">number</div></div>
+      <div class="col-sm-2"><input class="form-control" placeholder="123" type="text"><div class="help">ext</div></div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-1">Options</label>
+      <div class="col-sm-2"><input class="form-control" placeholder="Option 1" type="text"></div>
+      <div class="col-sm-3"><input class="form-control" placeholder="Option 2" type="text"></div>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-6">
+        <button type="submit" class="btn btn-info pull-right">Submit</button>
+      </div>
+    </div>
+  </form>
+  <hr>
+</div>

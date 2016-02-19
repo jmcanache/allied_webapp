@@ -23,9 +23,9 @@ ActiveRecord::Schema.define(version: 20160211214840) do
     t.string   "creditcard",  limit: 255
     t.string   "flight_type", limit: 255
     t.string   "airport",     limit: 255
-    t.string   "comments",    limit: 255
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
+    t.string   "comments",    limit: 255
     t.integer  "status",      limit: 4,   default: 1
   end
 

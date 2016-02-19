@@ -1,38 +1,3 @@
-<h1>Booking</h1>
-
-<%= form_for @booking, url: {action: "create"} do |b| %>
-
-	<%= b.label :email %>:
-	<%= b.email_field :email %>
-
-	<%= b.label :flight_number %>:
-	<%= b.text_field :flight_type %>
-
-	<%= b.label :airport %>:
-	<%= b.select :airport, options_for_select(["MIA", "FORT"], selected: "MIA") %>
-
-	<%= b.label :hotel %>:
-	<%= b.select :hotel_id, options_from_collection_for_select(@hotels, "id", "name")%>
-
-	<%= b.label :single %>:
-	<%= b.number_field :single, min:0 %>
-
-	<%= b.label :double %>:
-	<%= b.number_field :double, min:0 %>
-
-	<%= b.date_field :datein, as: :datepicker, :placeholder => 'CheckIn' %>
-
-	<%= b.date_field :dateout, as: :datepicker, :placeholder => 'CheckOut' %>
-
-	<%= b.label :creditcard %>:
-	<%= b.text_field :creditcard %>
-
-	<%= b.label :comments %>:
-	<%= b.text_area :comments %>
-
-	<%= b.submit %>
-<% end %>
-
 <% if @booking.errors.any? %>
 	<div id="error_explanation">
 	  <h2><%= pluralize(@booking.errors.count, "error") %> 
@@ -46,6 +11,41 @@
 	</div>
 <% end %>
 
+<div class="container">
+  <h2>Booking</h2>
+  <%= form_for @booking, url: {action: "create"}, html: {class: "form-horizontal"} do |b| %>
+    <div class="form-group">
+      <div class="col-sm-6"><%= b.label :email %><%= b.email_field :email, class: "form-control", required: "required" %></div>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-6"><%= b.label :flight_number %><%= b.text_field :flight_type, class: "form-control", required: "required" %></div>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-3"><%= b.label :airport %><%= b.select :airport, options_for_select(["MIA", "FORT"], selected: "MIA"), {}, class: "form-control" %></div>
+      <div class="col-sm-3"><%= b.label :hotel %><%= b.select :hotel_id, options_from_collection_for_select(@hotels, "id", "name"), {}, class: "form-control"%></div>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-3"><%= b.label :single %><%= b.number_field :single, min:0, class: "form-control" %></div>
+      <div class="col-sm-3"><%= b.label :double %><%= b.number_field :double, min:0, class: "form-control"%></div>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-3"><%= b.date_field :datein, as: :datepicker, placeholder: 'CheckIn', class: "form-control", required: "required" %></div>
+      <div class="col-sm-3"><%= b.date_field :dateout, as: :datepicker, placeholder: 'CheckOut', class: "form-control", required: "required"%></div>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-6"><%= b.label :creditcard %><%= b.text_field :creditcard, class: "form-control", required: "required"%></div>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-6"><%= b.label :comments %><%= b.text_area :comments, class: "form-control"%></div>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-6">
+        <%= b.submit "Create Booking", class: "btn btn-info pull-right" %>
+      </div>
+    </div>
+  <% end %>
+</div>
+
 <script type="text/javascript">
  $(function() {
     $( "#booking_datein" ).datepicker({ minDate: 0, maxDate: "+3M +10D", dateFormat: 'yy/mm/dd'});
@@ -54,43 +54,3 @@
     $( "#booking_dateout" ).datepicker({ minDate: 0, maxDate: "+3M +10D", dateFormat: 'yy/mm/dd' });
   });
 </script>
-
-<div class="container">
-  <h2>Bootstrap Mixed Form <p class="lead">with horizontal and inline fields</p></h2>
-  <form role="form" class="form-horizontal">
-    <div class="form-group">
-      <label class="col-sm-1" for="inputEmail1">Email</label>
-      <div class="col-sm-5"><input class="form-control" id="inputEmail1" placeholder="Email" type="email"></div>
-    </div>
-    <div class="form-group">
-      <label class="col-sm-1" for="inputPassword1">Password</label>
-      <div class="col-sm-5"><input class="form-control" id="inputPassword1" placeholder="Password" type="password"></div>
-    </div>
-    <div class="form-group">
-      <label class="col-sm-12" for="TextArea">Textarea</label>
-      <div class="col-sm-6"><textarea class="form-control" id="TextArea"></textarea></div>
-    </div>
-    <div class="form-group">
-      <div class="col-sm-3"><label>First name</label><input class="form-control" placeholder="First" type="text"></div>
-      <div class="col-sm-3"><label>Last name</label><input class="form-control" placeholder="Last" type="text"></div>
-    </div>
-    <div class="form-group">
-      <label class="col-sm-12">Phone number</label>
-      <div class="col-sm-1"><input class="form-control" placeholder="000" type="text"><div class="help">area</div></div>
-      <div class="col-sm-1"><input class="form-control" placeholder="000" type="text"><div class="help">local</div></div>
-      <div class="col-sm-2"><input class="form-control" placeholder="1111" type="text"><div class="help">number</div></div>
-      <div class="col-sm-2"><input class="form-control" placeholder="123" type="text"><div class="help">ext</div></div>
-    </div>
-    <div class="form-group">
-      <label class="col-sm-1">Options</label>
-      <div class="col-sm-2"><input class="form-control" placeholder="Option 1" type="text"></div>
-      <div class="col-sm-3"><input class="form-control" placeholder="Option 2" type="text"></div>
-    </div>
-    <div class="form-group">
-      <div class="col-sm-6">
-        <button type="submit" class="btn btn-info pull-right">Submit</button>
-      </div>
-    </div>
-  </form>
-  <hr>
-</div>

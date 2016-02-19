@@ -12,34 +12,34 @@
 <% end %>
 
 <div class="container">
-  <h2>Booking</h2>
-  <%= form_for @booking, url: {action: "create"}, html: {class: "form-horizontal"} do |b| %>
+  <%= form_for @booking, url: {action: "create"}, html: {class: "form-horizontal col-sm-offset-3"} do |b| %>
+    <h2>Booking</h2>
     <div class="form-group">
-      <div class="col-sm-6"><%= b.label :email %><%= b.email_field :email, class: "form-control", required: "required" %></div>
+      <div class="col-sm-8"><%= b.label :email %><%= b.email_field :email, class: "form-control", required: "required" %></div>
     </div>
     <div class="form-group">
-      <div class="col-sm-6"><%= b.label :flight_number %><%= b.text_field :flight_type, class: "form-control", required: "required" %></div>
+      <div class="col-sm-8"><%= b.label :flight_number %><%= b.text_field :flight_type, class: "form-control", required: "required" %></div>
     </div>
     <div class="form-group">
-      <div class="col-sm-3"><%= b.label :airport %><%= b.select :airport, options_for_select(["MIA", "FORT"], selected: "MIA"), {}, class: "form-control" %></div>
-      <div class="col-sm-3"><%= b.label :hotel %><%= b.select :hotel_id, options_from_collection_for_select(@hotels, "id", "name"), {}, class: "form-control"%></div>
+      <div class="col-sm-4"><%= b.label :airport %><%= b.select :airport, options_for_select(["MIA", "FORT"], selected: "MIA"), {}, class: "form-control" %></div>
+      <div class="col-sm-4"><%= b.label :hotel %><%= b.select :hotel_id, options_from_collection_for_select(@hotels, "id", "name"), {}, class: "form-control"%></div>
     </div>
     <div class="form-group">
-      <div class="col-sm-3"><%= b.label :single %><%= b.number_field :single, min:0, class: "form-control" %></div>
-      <div class="col-sm-3"><%= b.label :double %><%= b.number_field :double, min:0, class: "form-control"%></div>
+      <div class="col-sm-4"><%= b.label :single %><%= b.number_field :single, min:0, class: "form-control" %></div>
+      <div class="col-sm-4"><%= b.label :double %><%= b.number_field :double, min:0, class: "form-control"%></div>
     </div>
     <div class="form-group">
-      <div class="col-sm-3"><%= b.date_field :datein, as: :datepicker, placeholder: 'CheckIn', class: "form-control", required: "required" %></div>
-      <div class="col-sm-3"><%= b.date_field :dateout, as: :datepicker, placeholder: 'CheckOut', class: "form-control", required: "required"%></div>
+      <div class="col-sm-4"><%= b.label :CheckIn,  class: "control-label" %><%= b.date_field :datein, as: :datepicker, class: "form-control", required: "required" %><p class="help-block" style="display: none">Dates error.</p></div>
+      <div class="col-sm-4"><%= b.label :CheckOut, class: "control-label" %><%= b.date_field :dateout, as: :datepicker, class: "form-control", required: "required"%></div>
     </div>
     <div class="form-group">
-      <div class="col-sm-6"><%= b.label :creditcard %><%= b.text_field :creditcard, class: "form-control", required: "required"%></div>
+      <div class="col-sm-8"><%= b.label :creditcard %><%= b.text_field :creditcard, class: "form-control", required: "required"%></div>
     </div>
     <div class="form-group">
-      <div class="col-sm-6"><%= b.label :comments %><%= b.text_area :comments, class: "form-control"%></div>
+      <div class="col-sm-8"><%= b.label :comments %><%= b.text_area :comments, class: "form-control"%></div>
     </div>
     <div class="form-group">
-      <div class="col-sm-6">
+      <div class="col-sm-8">
         <%= b.submit "Create Booking", class: "btn btn-info pull-right" %>
       </div>
     </div>
@@ -48,9 +48,30 @@
 
 <script type="text/javascript">
  $(function() {
-    $( "#booking_datein" ).datepicker({ minDate: 0, maxDate: "+3M +10D", dateFormat: 'yy/mm/dd'});
-  });
-  $(function() {
-    $( "#booking_dateout" ).datepicker({ minDate: 0, maxDate: "+3M +10D", dateFormat: 'yy/mm/dd' });
+      $( "#booking_datein" ).datepicker({ 
+      minDate: 0, 
+      maxDate: "+3M +10D", 
+      dateFormat: 'yy/mm/dd',
+      onSelect: function() {
+        var dateIn = $('#booking_datein').datepicker('getDate');
+        var dateOut = $('#booking_dateout').datepicker('getDate');
+        if(dateIn != null && dateOut != null) dateIn >= dateOut ? $(this).closest('.form-group').addClass('has-error').find('.help-block').fadeIn() : $(this).closest('.form-group').removeClass('has-error').find('.help-block').fadeOut();
+      }
+    });
+
+    $( "#booking_dateout" ).datepicker({
+      minDate: 0, 
+      maxDate: "+3M +10D", 
+      dateFormat: 'yy/mm/dd', 
+      onSelect: function() {
+        var dateIn = $('#booking_datein').datepicker('getDate');
+        var dateOut = $('#booking_dateout').datepicker('getDate');
+        if(dateIn != null && dateOut != null) dateIn >= dateOut ? $(this).closest('.form-group').addClass('has-error').find('.help-block').fadeIn() : $(this).closest('.form-group').removeClass('has-error').find('.help-block').fadeOut();
+      }
+    });
+
+    $('#new_booking').submit(function(e){
+      if($(this).find('.has-error').length > 0) e.preventDefault();
+    })
   });
 </script>

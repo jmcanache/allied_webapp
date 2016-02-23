@@ -13,34 +13,37 @@
 
 <div class="container">
   <%= form_for @booking, url: {action: "create"}, html: {class: "form-horizontal col-sm-offset-3"} do |b| %>
-    <h2>Booking</h2>
+    <%= image_tag("logo.png", class: "col-sm-offset-1", size: "350x130", alt: "Logo") %>
+
     <div class="form-group">
-      <div class="col-sm-8"><%= b.label :email %><%= b.email_field :email, class: "form-control", required: "required" %></div>
+      <div class="col-sm-4"><%= b.label :name %><%= b.text_field :name, class: "form-control", placeholder: "Your full name"%></div>
+      <div class="col-sm-4"><%= b.label :email %><%= b.email_field :email, class: "form-control", required: "required", placeholder: "example@example.com"%></div>
     </div>
+
     <div class="form-group">
-      <div class="col-sm-8"><%= b.label :flight_number %><%= b.text_field :flight_type, class: "form-control", required: "required" %></div>
+      <div class="col-sm-8"><%= b.label :flight_number %><%= b.text_field :flight_type, class: "form-control", required: "required", placeholder: "e.g: 444555666"%></div>
     </div>
     <div class="form-group">
       <div class="col-sm-4"><%= b.label :airport %><%= b.select :airport, options_for_select(["MIA", "FORT"], selected: "MIA"), {}, class: "form-control" %></div>
       <div class="col-sm-4"><%= b.label :hotel %><%= b.select :hotel_id, options_from_collection_for_select(@hotels, "id", "name"), {}, class: "form-control"%></div>
     </div>
     <div class="form-group">
-      <div class="col-sm-4"><%= b.label :single %><%= b.number_field :single, min:0, class: "form-control" %></div>
-      <div class="col-sm-4"><%= b.label :double %><%= b.number_field :double, min:0, class: "form-control"%></div>
+      <div class="col-sm-4"><%= b.label :single %><%= b.number_field :single, min:0, class: "form-control", placeholder: "0"%></div>
+      <div class="col-sm-4"><%= b.label :double %><%= b.number_field :double, min:0, class: "form-control", placeholder: "0"%></div>
     </div>
     <div class="form-group">
-      <div class="col-sm-4"><%= b.label :CheckIn,  class: "control-label" %><%= b.date_field :datein, as: :datepicker, class: "form-control", required: "required" %><p class="help-block" style="display: none">Dates error.</p></div>
-      <div class="col-sm-4"><%= b.label :CheckOut, class: "control-label" %><%= b.date_field :dateout, as: :datepicker, class: "form-control", required: "required"%></div>
+      <div class="col-sm-4"><%= b.label :CheckIn,  class: "control-label" %><%= b.date_field :datein, as: :datepicker, class: "form-control", required: "required", placeholder: "yyyy/mm/dd"%><p class="help-block" style="display: none">Dates error.</p></div>
+      <div class="col-sm-4"><%= b.label :CheckOut, class: "control-label" %><%= b.date_field :dateout, as: :datepicker, class: "form-control", required: "required", placeholder: "yyyy/mm/dd"%></div>
     </div>
     <div class="form-group">
-      <div class="col-sm-8"><%= b.label :creditcard %><%= b.text_field :creditcard, class: "form-control", required: "required"%></div>
+      <div class="col-sm-8"><%= b.label :creditcard %><%= b.text_field :creditcard, class: "form-control", required: "required",placeholder: "16 digits" %></div>
     </div>
     <div class="form-group">
-      <div class="col-sm-8"><%= b.label :comments %><%= b.text_area :comments, class: "form-control"%></div>
+      <div class="col-sm-8"><%= b.label :comments %><%= b.text_area :comments, class: "form-control", placeholder: "Let us know if you need anything else."%></div>
     </div>
     <div class="form-group">
       <div class="col-sm-8">
-        <%= b.submit "Create Booking", class: "btn btn-info pull-right" %>
+        <%= b.submit "Create Booking", class: "btn btn-primary pull-right" %>
       </div>
     </div>
   <% end %>

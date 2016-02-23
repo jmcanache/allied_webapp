@@ -1,9 +1,11 @@
 class Notifier < ApplicationMailer
-	def send_booking_request(user, booking)
-		@user = user
+	def send_booking_request(recipient, gretings, booking, hotel)
+		@gretings = gretings
 		@booking = booking
-		logger.debug(@booking.inspect)
-		mail( :to => @user.email,
-		:subject => 'New booking request')
+		@hotel = hotel
+
+		mail( :to => recipient,
+			:subject => 'New booking request')
+
 	end
 end

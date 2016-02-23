@@ -1,3 +1,159 @@
-<h1>Thanks for signing up</h1>
-<p>Thanks for joining and have a great day! Now sign in and do
-awesome things!</p>
+  <table align="center" border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" style="background: #eeeeee !important;">
+    <tr>
+      <td align="center" valign="top" width="100%" style="background-color: #eee !important;">
+        <center>
+          <table cellpadding="0" cellspacing="0" width="600" class="wrap">
+            <tr>
+              <td valign="top" class="wrap-cell" style="padding-top:30px; padding-bottom:30px; padding-left: 10px">
+                <table cellpadding="0" cellspacing="0" class="force-full-width">
+                  <tr>
+                   <td height="60" valign="top" style="background: #ffffff !important; padding-left: 10px; padding-top: 10px;">
+                   		<%= image_tag("https://files.slack.com/files-pri/T04HXC00W-F0N91MKQV/logo-mini.png?pub_secret=8644f54a91", size: "186x57") %>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td valign="top" class="body-cell">
+                      <table cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+                        <tr>
+                          <td valign="top" style="padding: 20px; background-color:#ffffff;">
+                          Hi <%= @gretings %>,<br><br>
+                          There is a new booking request for you to check out. Please confirm the dates.
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <table cellspacing="0" cellpadding="0" width="100%" bgcolor="#ffffff">
+                            <tr>
+                              <td align="center" style="padding:20px 0;">
+                                <center>
+                                  <table cellspacing="0" cellpadding="0" class="card">
+                                    <tr>
+                                      <td style="background-color:#286090; text-align:center; padding:10px; color:white; ">
+                                        Booking Details
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td style="border:1px solid #286090;">
+                                        <table cellspacing="0" cellpadding="20" width="100%">
+                                          <tr>
+                                            <td>
+                                              <table cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+                                                <tr>
+                                                  <td width="150" class="data-heading">
+                                                    Hotel:
+                                                  </td>
+                                                  <td class="data-value">
+                                                    <%= @hotel %>
+                                                  </td>
+                                                </tr>
+                                                <tr>
+                                                  <td width="150" class="data-heading">
+                                                    Guest:
+                                                  </td>
+                                                  <td class="data-value">
+                                                    <%= @booking.name %>
+                                                  </td>
+                                                </tr>
+                                                <tr>
+                                                  <td width="150" class="data-heading">
+                                                    Email:
+                                                  </td>
+                                                  <td class="data-value">
+                                                    <%= @booking.email %>
+                                                  </td>
+                                                </tr>
+                                                <tr>
+                                                  <td width="150" class="data-heading">
+                                                    Flight number:
+                                                  </td>
+                                                  <td class="data-value">
+                                                    <%= @booking.flight_type %>
+                                                  </td>
+                                                </tr>
+                                                <tr>
+                                                  <td width="150" class="data-heading">
+                                                    Airport:
+                                                  </td>
+                                                  <td class="data-value">
+                                                    <%= @booking.airport %>
+                                                  </td>
+                                                </tr>
+                                                <tr>
+                                                  <td width="150" class="data-heading">
+                                                    Single Room:
+                                                  </td>
+                                                  <td class="data-value">
+                                                   <%= @booking.single %>
+                                                  </td>
+                                                </tr>
+                                                <tr>
+                                                  <td width="150" class="data-heading">
+                                                    Double Room:
+                                                  </td>
+                                                  <td class="data-value">
+                                                   <%= @booking.double %>
+                                                  </td>
+                                                </tr>
+                                                <tr>
+                                                <td width="150" class="data-heading">
+                                                    Check-In:
+                                                  </td>
+                                                  <td class="data-value">
+                                                   <%= @booking.datein %>
+                                                  </td>
+                                                </tr>
+                                                <tr>
+                                                  <td width="150" class="data-heading">
+                                                    Check-Out:
+                                                  </td>
+                                                  <td class="data-value">
+                                                    <%= @booking.dateout %>
+                                                  </td>
+                                                </tr>
+                                                <tr>
+                                                  <td width="150" class="data-heading">
+                                                    Creditcard number:
+                                                  </td>
+                                                  <td class="data-value">
+                                                    <%= @booking.creditcard %>
+                                                  </td>
+                                                </tr> 
+                                                <tr>
+                                                  <td width="150" class="data-heading">
+                                                    Comments:
+                                                  </td>
+                                                  <td class="data-value">
+                                                   <%= @booking.comments %>
+                                                  </td>
+                                                </tr>                                                                                               
+                                              </table>
+                                            </td>
+                                          </tr>
+                                        </table>
+                                      </td>
+                                    </tr>
+                                  </table>
+                                </center>
+                              </td>
+                            </tr>
+                          </table>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td style="padding: 20px;background-color:#ffffff;">
+                            Thank you!<br>
+                            Allied Hospitality Group, Inc <br>
+                            <a src="http://allied-hospitality.com/">allied-hospitality.com</a>
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </center>
+      </td>
+    </tr>
+  </table>

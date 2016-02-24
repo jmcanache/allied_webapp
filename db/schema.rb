@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160223204906) do
+ActiveRecord::Schema.define(version: 20160224220245) do
 
   create_table "bookings", force: :cascade do |t|
     t.string   "email",       limit: 255
@@ -39,6 +39,12 @@ ActiveRecord::Schema.define(version: 20160223204906) do
     t.integer  "double",     limit: 4
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
+  end
+
+  create_table "seed_migration_data_migrations", force: :cascade do |t|
+    t.string   "version",     limit: 255
+    t.integer  "runtime",     limit: 4
+    t.datetime "migrated_on"
   end
 
   add_foreign_key "bookings", "hotels"

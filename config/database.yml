@@ -50,6 +50,6 @@ test:
 #
 production:
   <<: *default
-  database: allied_production
-  username: allied
-  password: <%= ENV['ALLIED_DATABASE_PASSWORD'] %>
+  database: <%= ENV['DATABASE_NAME'] %>
+  username: <%= ENV['DATABASE_USER'] %>
+  password: <%= ENV['DATABASE_PASSWORD'] %>

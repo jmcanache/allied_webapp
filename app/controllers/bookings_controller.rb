@@ -12,14 +12,16 @@ class BookingsController < ApplicationController
     hotel = Hotel.find(booking_params[:hotel_id])
 
     if records_overlaping.blank?
-      new_booking = true
+      if hotel[:single] > booking_params[:single].to_i and hotel[:double] > booking_params[:double].to_i
+        new_booking = true
+      end
     else #There are records overlaping, gotta check room availability.
       
       #Count how many rooms are currently busy
       single = double = 0
       records_overlaping.each do |r|
-        single += r[:single]
-        double += r[:double]
+        single += r[:single].to_i
+        double += r[:double].to_i
       end
 
       #Number of rooms available

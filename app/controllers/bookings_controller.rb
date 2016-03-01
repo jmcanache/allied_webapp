@@ -44,9 +44,9 @@ class BookingsController < ApplicationController
       
         #hotel_recipient = [hotel.email, hotel.name]
         #guest_recipient = [@booking.email, @booking.name]
-        hotel_recipient = ['mjcanache@gmail.com', hotel.name]
-        guest_recipient = ['mjcanache@gmail.com', @booking.name]
-        allied_recipient = ['mjcanache@gmail.com', 'Allied Hospitality']
+        hotel_recipient = ['gfernandez@yirehcs.com', hotel.name]
+        guest_recipient = ['gfernandez@yirehcs.com', @booking.name]
+        allied_recipient = ['gfernandez@yirehcs.com', 'Allied Hospitality']
 
         send = [hotel_recipient, guest_recipient, allied_recipient] 
         send.each do |send_to|

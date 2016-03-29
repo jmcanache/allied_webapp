@@ -1,7 +1,7 @@
 <div class="container page-wrap" style="padding-top: 10%">
 	<div class="row" style="padding-bottom: 2%; font-size: 1.5em">
 		<div class="text-center col-sm-12">
-			<p><b>Consult</b></p>
+			<p><b>Select report dates</b></p>
 		</div>
 	</div>
 	<%= form_tag({controller: "bookings", action: "process_report"}, {class: "form-horizontal col-sm-offset-3", id: "create_report"}) do %>
@@ -26,7 +26,7 @@
 	  </div>
 	  <div class="form-group">
 	    <div class="col-sm-8">
-	      <%= submit_tag "Consult Records", class: "btn btn-primary pull-right" %>
+	      <%= submit_tag "Generate report", class: "btn btn-primary pull-right" %>
 	    </div>
 	  </div>
 	<% end %>

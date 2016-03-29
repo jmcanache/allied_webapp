@@ -90,8 +90,8 @@ global: &global
   encoding: utf8
   pool: 5
   username: root
-  password: abc123
-  #password: 12345678
+  #password: abc123
+  password: 12345678
   socket: /var/run/mysqld/mysqld.sock
 
 development:

@@ -20,4 +20,12 @@ class Booking < ActiveRecord::Base
       "DATEDIFF(bookings.datein, '#{dateout}') * DATEDIFF('#{datein}', bookings.dateout) >= 0"
     )
   }
+
+  scope :in_range_report, -> (datein, dateout) {
+    where(
+      "bookings.status = 1"
+    ).where(
+      "DATEDIFF(bookings.datein, '#{dateout}') * DATEDIFF('#{datein}', bookings.dateout) >= 0"
+    )
+  }
 end

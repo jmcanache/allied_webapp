@@ -11,7 +11,7 @@
 	</div>
 <% end %>
 
-<div class="container">
+<div class="container page-wrap">
   <%= form_for @booking, url: {action: "create"}, html: {class: "form-horizontal col-sm-offset-3"} do |b| %>
     <%= image_tag("logo.png", class: "col-sm-offset-1", size: "350x130", alt: "Logo") %>
 
@@ -32,8 +32,8 @@
       <div class="col-sm-4"><%= b.label :double %><%= b.number_field :double, min:0, class: "form-control", placeholder: "0"%></div>
     </div>
     <div class="form-group">
-      <div class="col-sm-4"><%= b.label :CheckIn,  class: "control-label" %><%= b.date_field :datein, as: :datepicker, class: "form-control", required: "required", placeholder: "yyyy/mm/dd"%><p class="help-block" style="display: none">Dates error.</p></div>
-      <div class="col-sm-4"><%= b.label :CheckOut, class: "control-label" %><%= b.date_field :dateout, as: :datepicker, class: "form-control", required: "required", placeholder: "yyyy/mm/dd"%></div>
+      <div class="col-sm-4"><%= b.label :CheckIn,  class: "control-label" %><div class="input-group date"><%= b.text_field :datein, class: "form-control", required: "required", placeholder: "yyyy/mm/dd"%><div class="input-group-addon"><i class="fa fa-calendar"></i></div></div><p class="help-block" style="display: none">Dates error.</p></div>
+      <div class="col-sm-4"><%= b.label :CheckOut, class: "control-label" %><div class="input-group date"><%= b.text_field :dateout, class: "form-control", required: "required", placeholder: "yyyy/mm/dd"%><div class="input-group-addon"><i class="fa fa-calendar"></i></div></div></div>
     </div>
     <div class="form-group">
       <div class="col-sm-8"><%= b.label :creditcard %><%= b.text_field :creditcard, class: "form-control", required: "required",placeholder: "16 digits" %></div>
@@ -51,26 +51,23 @@
 
 <script type="text/javascript">
  $(function() {
-      $( "#booking_datein" ).datepicker({ 
-      minDate: 0, 
-      maxDate: "+3M +10D", 
-      dateFormat: 'yy/mm/dd',
-      onSelect: function() {
-        var dateIn = $('#booking_datein').datepicker('getDate');
-        var dateOut = $('#booking_dateout').datepicker('getDate');
-        if(dateIn != null && dateOut != null) dateIn >= dateOut ? $(this).closest('.form-group').addClass('has-error').find('.help-block').fadeIn() : $(this).closest('.form-group').removeClass('has-error').find('.help-block').fadeOut();
-      }
+    $('.date_picker, .input-group.date').datepicker({
+      todayHighlight: true,
+      format: "yyyy/mm/dd",
+      autoclose: true,
+      startDate: "t",
     });
 
-    $( "#booking_dateout" ).datepicker({
-      minDate: 0, 
-      maxDate: "+3M +10D", 
-      dateFormat: 'yy/mm/dd', 
-      onSelect: function() {
-        var dateIn = $('#booking_datein').datepicker('getDate');
-        var dateOut = $('#booking_dateout').datepicker('getDate');
-        if(dateIn != null && dateOut != null) dateIn >= dateOut ? $(this).closest('.form-group').addClass('has-error').find('.help-block').fadeIn() : $(this).closest('.form-group').removeClass('has-error').find('.help-block').fadeOut();
-      }
+    $('#booking_datein').change(function(){
+      var dateIn = $(this).val()
+      var dateOut = $('#booking_dateout').val()
+      if(dateIn != null && dateOut != null)  Date.parse(dateIn) >= Date.parse(dateOut) ? $(this).closest('.form-group').addClass('has-error').find('.help-block').fadeIn() : $(this).closest('.form-group').removeClass('has-error').find('.help-block').fadeOut();
+    });
+
+    $('#booking_dateout').change(function(){
+      var dateIn = $('#booking_datein').val()
+      var dateOut = $(this).val() 
+      if(dateIn != null && dateOut != null)  Date.parse(dateIn) >= Date.parse(dateOut) ? $(this).closest('.form-group').addClass('has-error').find('.help-block').fadeIn() : $(this).closest('.form-group').removeClass('has-error').find('.help-block').fadeOut();
     });
 
     $('#new_booking').submit(function(e){

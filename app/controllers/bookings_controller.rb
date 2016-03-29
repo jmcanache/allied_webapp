@@ -73,6 +73,28 @@ class BookingsController < ApplicationController
   def delete
   end
 
+  def report
+    @records = []
+  end
+
+  def process_report
+    @date_in = params[:date_in]
+    @date_out = params[:date_out]
+    @records = Booking.in_range_report(@date_in,@date_out)
+
+    @records.each do |record|
+      hotel = Hotel.find(record[:hotel_id])
+      record[:comments] = hotel[:name]
+    end
+
+    
+
+    logger.debug('antes')
+    logger.debug(@records.inspect)
+    logger.debug('despues')
+    #logger.debug(Date.parse("2016-02-20") >= Date.parse("2016-02-20"))
+  end
+
   private
   def booking_params
     params.require(:booking).permit(:email, :name, :flight_type, :airport, :hotel_id, :single, :double, :datein, :dateout, :creditcard, :comments)

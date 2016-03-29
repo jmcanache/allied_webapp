@@ -1,0 +1,44 @@
+<div class="container page-wrap">
+	<div class="row" style="padding: 1% 0 3%; font-size: 1.3em;">
+		<div class="col-sm-3">
+			<%= image_tag('logo-mini.png', class: "img-responsive") %>
+		</div>
+		<div class="col-sm-offset-2 col-sm-7 text-center" style="padding-top: 2%">
+			<p><b>Allied Booking report</b></p>
+			<p><b>From <span style="color:blue;"><%=@date_in%></span> to <span style="color:blue;"><%=@date_out%></span></b></p>
+		</div>
+	</div>
+	<div class="row">
+	    <div class="col-sm-12">
+				<table class="table table-hover table-striped">
+					<thead>
+						<th>Name</th>
+						<th>Email</th>
+						<th>Airport</th>
+						<th>Hotel</th>
+						<th>Single</th>
+						<th>Double</th>
+						<th>Check-in</th>
+						<th>Chech-out</th>
+					</thead>
+				  <tbody>
+				  	<%if @records.any? %>
+					  	<% @records.each do |record| %>
+					  		<tr>
+						      <td><%= record[:email] %></td>
+						      <td><%= record[:name] %></td>
+						      <td><%= record[:airport]%></td>
+						      <td><%= record[:comments] %></td>
+						      <td><%= record[:single] %></td>
+						      <td><%= record[:double] %></td>
+						      <td><%= record[:datein] %></td>
+						      <td><%= record[:dateout] %></td>
+						    </tr>
+					  	<% end %>
+					  <% end %>
+				  </tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>

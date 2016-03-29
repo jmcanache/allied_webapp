@@ -86,13 +86,6 @@ class BookingsController < ApplicationController
       hotel = Hotel.find(record[:hotel_id])
       record[:comments] = hotel[:name]
     end
-
-    
-
-    logger.debug('antes')
-    logger.debug(@records.inspect)
-    logger.debug('despues')
-    #logger.debug(Date.parse("2016-02-20") >= Date.parse("2016-02-20"))
   end
 
   private

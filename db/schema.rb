@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160224220245) do
+ActiveRecord::Schema.define(version: 20160412214507) do
 
   create_table "bookings", force: :cascade do |t|
     t.string   "email",       limit: 255
@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(version: 20160224220245) do
     t.string   "comments",    limit: 255
     t.integer  "status",      limit: 4,   default: 1
     t.string   "name",        limit: 255
+    t.string   "airline",     limit: 255
   end
 
   add_index "bookings", ["hotel_id"], name: "index_bookings_on_hotel_id", using: :btree
@@ -39,6 +40,7 @@ ActiveRecord::Schema.define(version: 20160224220245) do
     t.integer  "double",     limit: 4
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
+    t.string   "password",   limit: 255
   end
 
   create_table "seed_migration_data_migrations", force: :cascade do |t|

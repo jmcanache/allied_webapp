@@ -1,0 +1,83 @@
+<div class="container page-wrap" style="padding-top: 1%">
+	<%= form_tag({controller: "hotels", action: "update_rooms_admin"}, {class: "form-horizontal col-sm-offset-3", id: "hotel_rooms"}) do %>
+		<%= image_tag("logo.png", class: "col-sm-offset-1", size: "350x130", alt: "Logo") %>	
+		<div class="form-group">		
+	    	<div class="col-sm-8">
+	    		<label for="hotel" class="control-label">Select a hotel</label>
+	    		<%= select_tag "hotel", options_from_collection_for_select(@hotels, "id", "name"), class: "form-control", required: "required" %>
+	    	</div>
+	  	</div>
+		<div class="form-group">
+		    <div class="col-sm-4">
+		    	<%= label_tag :single, nil, class: "control-label" %>
+		      	<%= number_field_tag :single, nil, class: "form-control", required: "required", placeholder: "Avaliable single rooms", value: @hotels[0][:single]%>
+		    </div>
+
+		    <div class="col-sm-4">
+		    	<%= label_tag :double, nil, class: "control-label" %>
+		      	<%= number_field_tag :double, nil, class: "form-control", required: "required", placeholder: "Avaliable double rooms", value: @hotels[0][:double]%>
+		    </div>
+	  	</div>
+	  	<div class="form-group">
+	    	<div class="col-sm-8">
+	      		<%= submit_tag "Update rooms", class: "btn btn-primary pull-right" %>
+	    	</div>
+	  	</div>
+	<% end %>
+</div>
+
+<script type="text/javascript">
+	$(document).ready( function(){
+		$('#hotel').change(function(){
+			var hotel_id = $(this).find(":selected").val();
+			$.ajax({
+                type: 'POST',
+                url: 'get_rooms',
+                data: {id: hotel_id},
+                async: true,
+                cache: false,
+                success: function (d) {
+                	$('#single').val(d.single);
+                	$('#double').val(d.doubles);
+                }
+            });
+		})
+
+		var frm = $('#hotel_rooms');
+        $(frm).submit(function (ev) {
+            ev.preventDefault();
+            ev.stopImmediatePropagation();
+            $.ajax({
+                type: 'POST',
+                url: frm.attr('action'),
+                data: frm.serialize(),
+                async: true,
+                cache: false,
+                success: function (d) {
+                	$('body').find('.ajax-alert').remove();
+                	if(d){
+                		contenido = '<div style="padding-top: 1%" class="ajax-alert">'+
+							            '<div class="alert alert-success fade in">'+
+							              '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
+							                '<span aria-hidden="true">&times;</span>'+
+							              '</button>'+
+							              '<strong>Success! Rooms update successfully.</strong>'+
+							            '</div>'+
+							        '</div>';
+				        $('.container').first().prepend(contenido);
+                	}else{
+                		contenido = '<div style="padding-top: 1%" class="ajax-alert">'+
+							            '<div class="alert alert-danger fade in">'+
+							              '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
+							                '<span aria-hidden="true">&times;</span>'+
+							              '</button>'+
+							              '<strong>Sorry! Try again.</strong>'+
+							            '</div>'+
+							        '</div>';
+				        $('.container').first().prepend(contenido);
+                	}
+                }
+            });
+        });
+	});
+</script>

@@ -13,7 +13,7 @@
 
 <div class="container page-wrap">
   <%= form_for @booking, url: {action: "create"}, html: {class: "form-horizontal col-sm-offset-3"} do |b| %>
-    <%= image_tag("logo.png", class: "col-sm-offset-1", size: "350x130", alt: "Logo") %>
+    <%= image_tag("logo.png", class: "col-sm-offset-1", size: "350x130", alt: "Logo", style: "margin-top: 20px; margin-bottom: 30px;") %>
 
     <div class="form-group">
       <div class="col-sm-4"><%= b.label :name %><%= b.text_field :name, class: "form-control", placeholder: "Your full name"%></div>

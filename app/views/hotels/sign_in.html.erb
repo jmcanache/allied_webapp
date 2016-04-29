@@ -1,6 +1,6 @@
 <div class="container page-wrap" style="padding-top: 1%">
 	<%= form_tag({controller: "hotels", action: "check_user"}, {class: "form-horizontal col-sm-offset-3", id: "sing_up_hotels"}) do %>
-		<%= image_tag("logo.png", class: "col-sm-offset-1", size: "350x130", alt: "Logo") %>
+		<%= image_tag("logo.png", class: "col-sm-offset-1", size: "350x130", alt: "Logo", style: "margin-top: 20px; margin-bottom: 30px;") %>
 		<div class="form-group">
 		    <div class="col-sm-4">
 		    	<%= label_tag :email, nil, class: "control-label" %>
@@ -14,7 +14,7 @@
 	  	</div>
 	  	<div class="form-group">
 	    	<div class="col-sm-8">
-	      		<%= submit_tag "Sing in", class: "btn btn-primary pull-right" %>
+	      		<%= submit_tag "Log in", class: "btn btn-primary pull-right" %>
 	    	</div>
 	  	</div>
 	<% end %>

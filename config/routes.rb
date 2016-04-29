@@ -3,8 +3,8 @@ Rails.application.routes.draw do
   get 'hotels/edit'
   get 'hotels/update'
   get 'hotels/delete'
-  get 'hotels/sing_in'
-  get 'hotels/sing_out'
+  get 'hotels/sign_in'
+  get 'hotels/sign_out'
   get 'hotels/rooms'
   get 'hotels/all_rooms'
 
@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   post 'hotels/check_user'
   post 'hotels/rooms'
   post 'hotels/all_rooms'
-  post 'hotels/sing_out'
+  post 'hotels/sign_out'
   post 'hotels/get_rooms'
 
   get 'bookings/new'

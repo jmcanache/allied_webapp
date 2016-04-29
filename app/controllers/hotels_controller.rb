@@ -12,7 +12,7 @@ class HotelsController < ApplicationController
   def delete
   end
 
-  def sing_in
+  def sign_in
   	if !session[:hotel_id].blank?
   		redirect_to action: 'rooms'
   	end
@@ -21,10 +21,10 @@ class HotelsController < ApplicationController
   	end
   end
 
-  def sing_out
+  def sign_out
   	session.delete(:hotel_id)
   	session.delete(:admin)
-  	redirect_to action: 'sing_in'
+  	redirect_to action: 'sign_in'
   end
 
   def check_user
@@ -37,14 +37,14 @@ class HotelsController < ApplicationController
 	  		session[:hotel_id] = user.id
 	  		redirect_to action: 'rooms'
 	  	else
-			redirect_to action: 'sing_in', alert: "Email or password incorrect."
+			redirect_to action: 'sign_in', alert: "Email or password incorrect."
 	  	end
 	end
   end
 
   def all_rooms
   	if session[:admin].blank?
-  		redirect_to action: 'sing_in', warning: "Only admins have access"
+  		redirect_to action: 'sign_in', warning: "Only admins have access"
 	else
 		@hotels = Hotel.all
 	end
@@ -52,7 +52,7 @@ class HotelsController < ApplicationController
 
   def rooms
   	if session[:hotel_id].blank?
-  		redirect_to action: 'sing_in', warning: "Only users have access."
+  		redirect_to action: 'sign_in', warning: "Only users have access."
   	else
   		@hotel = Hotel.find_hotel(session[:hotel_id])
   	end

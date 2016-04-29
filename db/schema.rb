@@ -16,6 +16,7 @@ ActiveRecord::Schema.define(version: 20160412214507) do
   create_table "bookings", force: :cascade do |t|
     t.string   "email",       limit: 255
     t.integer  "hotel_id",    limit: 4
+    t.string   "name",        limit: 255,               null: false
     t.string   "single",      limit: 255, default: "0"
     t.string   "double",      limit: 255, default: "0"
     t.date     "datein"
@@ -23,11 +24,10 @@ ActiveRecord::Schema.define(version: 20160412214507) do
     t.string   "creditcard",  limit: 255
     t.string   "flight_type", limit: 255
     t.string   "airport",     limit: 255
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
     t.string   "comments",    limit: 255
     t.integer  "status",      limit: 4,   default: 1
-    t.string   "name",        limit: 255
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
     t.string   "airline",     limit: 255
   end
 

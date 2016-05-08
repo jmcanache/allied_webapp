@@ -7,23 +7,29 @@
 	<%= form_tag({controller: "bookings", action: "process_report"}, {class: "form-horizontal col-sm-offset-3", id: "create_report"}) do %>
 		
 		<div class="form-group">
-	    <div class="col-sm-4">
-	    	<%= label_tag :date_in, nil, class: "control-label" %>
-	    	<div class="input-group date">
-	      	<%= text_field_tag :date_in, nil, class: "form-control date_picker", required: "required", placeholder: "yyyy/mm/dd"%>
-	      	<div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-	    </div>
-	    	<p class="help-block" style="display: none">Dates error.</p>
-	    </div>
+		    <div class="col-sm-8">
+		    	<%= label_tag :hotel, nil, class: "control-label" %>
+		    	<%= select_tag :hotel, options_from_collection_for_select(@hotels, "id", "name"), class: "form-control", required: "required" %>
+		    </div>
+		</div>
+		<div class="form-group">
+		    <div class="col-sm-4">
+		    	<%= label_tag :date_in, nil, class: "control-label" %>
+		    	<div class="input-group date">
+		      		<%= text_field_tag :date_in, nil, class: "form-control date_picker", required: "required", placeholder: "yyyy/mm/dd"%>
+			      	<div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+			    </div>
+		    	<p class="help-block" style="display: none">Dates error.</p>
+		    </div>
 
-	    <div class="col-sm-4">
-	    	<%= label_tag :date_out, nil, class: "control-label" %>
-	    	<div class="input-group date">
-	      	<%= text_field_tag :date_out, nil, as: :datepicker, class: "form-control date_picker", required: "required", placeholder: "yyyy/mm/dd"%>
-	    		<div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-	    	</div>
-	    </div>
-	  </div>
+		    <div class="col-sm-4">
+		    	<%= label_tag :date_out, nil, class: "control-label" %>
+		    	<div class="input-group date">
+		      		<%= text_field_tag :date_out, nil, as: :datepicker, class: "form-control date_picker", required: "required", placeholder: "yyyy/mm/dd"%>
+		    		<div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+		    	</div>
+		    </div>
+	  	</div>
 	  <div class="form-group">
 	    <div class="col-sm-8">
 	      <%= submit_tag "Generate report", class: "btn btn-primary pull-right" %>
@@ -56,5 +62,7 @@
     $('#create_report').submit(function(e){
       if($(this).find('.has-error').length > 0) e.preventDefault();
     });
+
+    $("#hotel").prepend("<option selected='selected' value='0'>All</option>");
   });
 </script>

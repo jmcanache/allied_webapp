@@ -1,7 +1,38 @@
 class BookingsController < ApplicationController
   def new
     @booking = Booking.new
-  	@hotels = Hotel.all
+    @booking.build_creditcard
+  	@hotels = Hotel.all.order(:name)
+    @airline = ['Aerolineas Argentinas', 
+                'Aeromexico',
+                'Air Berlin',
+                'Air France',
+                'Alitalia',
+                'American Airlines',
+                'American Eagle',
+                'Avianca',
+                'Bahamas Air',
+                'British Airways',
+                'Copa Airlines',
+                'Gol Airlines',
+                'Iberia',
+                'Interjet',
+                'Lan Argentina',
+                'Lan Chile',
+                'Lan Colombia',
+                'Lan Ecuador',
+                'Lan Peru',
+                'Luthansa',
+                'Qatar Airways',
+                'Santa Barbara Airlines',
+                'Swiss Air',
+                'Taca',
+                'Tam Brazilian Airlines',
+                'Tap Air Portugal',
+                'Transaero',
+                'United Airlines',
+                'Virgin Atlantic']
+    @default_airline = @airline[0]
   end
 
   def create
@@ -40,10 +71,13 @@ class BookingsController < ApplicationController
 
     if new_booking
       @booking = Booking.new(booking_params)
-      if @booking.save    
-      
-        #hotel_recipient = [hotel.email, hotel.name]
-        #guest_recipient = [@booking.email, @booking.name]
+      if @booking.save
+        if params[:info_email_status] == "1"
+          new_newsletter = Newsletter.email_exist?(booking_params[:email])
+          if !new_newsletter then Newsletter.create(email: booking_params[:email]) end
+        end
+        hotel_recipient = [hotel.email, hotel.name]
+        guest_recipient = [@booking.email, @booking.name]
         hotel_recipient = ['majoguevara10@aol.com', hotel.name]
         guest_recipient = ['majoguevara10@aol.com', @booking.name]
         allied_recipient = ['majoguevara10@aol.com', 'Allied Hospitality']
@@ -75,21 +109,25 @@ class BookingsController < ApplicationController
 
   def report
     @records = []
+    @hotels = Hotel.all.order(:name)
   end
 
   def process_report
     @date_in = params[:date_in]
     @date_out = params[:date_out]
-    @records = Booking.in_range_report(@date_in,@date_out)
-
+    @hotel_id = params[:hotel]
+    @hotel_id == "0" ?  @records = Booking.in_range_report(@date_in,@date_out) : @records = Booking.in_range(@date_in,@date_out,@hotel_id)
     @records.each do |record|
       hotel = Hotel.find(record[:hotel_id])
+      #for now the name is stored in comments because this filed is not used it in the report
       record[:comments] = hotel[:name]
     end
+    #reorder array by hotel name
+     @records = @records.sort_by &:comments
   end
 
   private
   def booking_params
-    params.require(:booking).permit(:email, :name, :flight_type, :airport, :hotel_id, :single, :double, :datein, :dateout, :creditcard, :comments, :airline)
+    params.require(:booking).permit(:email, :name, :flight_type, :airport, :hotel_id, :single, :double, :datein, :dateout, :comments, :airline, creditcard_attributes: [:name, :card_number, :zip_code, :verification_code])
   end
 end

@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  card_number: MyString
+  name: MyString
+  zip_code: 1
+  verification_code: 1
+  booking_id: 
+
+two:
+  card_number: MyString
+  name: MyString
+  zip_code: 1
+  verification_code: 1
+  booking_id: 

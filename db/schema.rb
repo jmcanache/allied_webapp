@@ -11,27 +11,38 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160412214507) do
+ActiveRecord::Schema.define(version: 20160508065935) do
 
   create_table "bookings", force: :cascade do |t|
     t.string   "email",       limit: 255
     t.integer  "hotel_id",    limit: 4
-    t.string   "name",        limit: 255,               null: false
     t.string   "single",      limit: 255, default: "0"
     t.string   "double",      limit: 255, default: "0"
     t.date     "datein"
     t.date     "dateout"
-    t.string   "creditcard",  limit: 255
     t.string   "flight_type", limit: 255
     t.string   "airport",     limit: 255
-    t.string   "comments",    limit: 255
-    t.integer  "status",      limit: 4,   default: 1
     t.datetime "created_at",                            null: false
     t.datetime "updated_at",                            null: false
+    t.string   "comments",    limit: 255
+    t.integer  "status",      limit: 4,   default: 1
+    t.string   "name",        limit: 255
     t.string   "airline",     limit: 255
   end
 
   add_index "bookings", ["hotel_id"], name: "index_bookings_on_hotel_id", using: :btree
+
+  create_table "creditcards", force: :cascade do |t|
+    t.string   "card_number",       limit: 255
+    t.string   "name",              limit: 255
+    t.integer  "zip_code",          limit: 4
+    t.integer  "verification_code", limit: 4
+    t.integer  "booking_id",        limit: 4
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+  end
+
+  add_index "creditcards", ["booking_id"], name: "index_creditcards_on_booking_id", using: :btree
 
   create_table "hotels", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -43,6 +54,13 @@ ActiveRecord::Schema.define(version: 20160412214507) do
     t.string   "password",   limit: 255
   end
 
+  create_table "newsletters", force: :cascade do |t|
+    t.string   "email",      limit: 255
+    t.integer  "status",     limit: 1,   default: 1
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+  end
+
   create_table "seed_migration_data_migrations", force: :cascade do |t|
     t.string   "version",     limit: 255
     t.integer  "runtime",     limit: 4
@@ -50,4 +68,5 @@ ActiveRecord::Schema.define(version: 20160412214507) do
   end
 
   add_foreign_key "bookings", "hotels"
+  add_foreign_key "creditcards", "bookings"
 end

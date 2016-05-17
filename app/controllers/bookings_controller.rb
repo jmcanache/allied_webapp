@@ -78,8 +78,8 @@ class BookingsController < ApplicationController
         end
         hotel_recipient = [hotel.email, hotel.name]
         guest_recipient = [@booking.email, @booking.name]
-        hotel_recipient = ['mjcanache@gmail.com.com', hotel.name]
-        guest_recipient = ['mjcanachem@gmail.com.com', @booking.name]
+        hotel_recipient = ['mjcanache@gmail.com', hotel.name]
+        guest_recipient = ['mjcanachem@gmail.com', @booking.name]
         allied_recipient = ['mjcanache@gmail.com', 'Allied Hospitality']
 
         send = [hotel_recipient, guest_recipient, allied_recipient] 

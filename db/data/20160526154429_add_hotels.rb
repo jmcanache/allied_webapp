@@ -2,48 +2,48 @@ class AddHotels < SeedMigration::Migration
   def up
   	Hotel.create!({
         :name => "Holiday Inn Miami International",
-        :email => "Walter@himiaia.com",
+        :email => "walter@himiaia.com",
         :single => "0",
         :double => "0",
         :created_at => "2015-11-26 15:37:23",
         :updated_at => "2015-11-26 15:37:23",
-        :password => "1234"
+        :password => "rtge56"
     })
     Hotel.create!({
         :name => "Miami Airport Sheraton",
-        :email => "Jnieto@sheratonmiamiairport.com",
+        :email => "jnieto@sheratonmiamiairport.com",
         :single => "0",
         :double => "0",
         :created_at => "2015-11-26 15:37:23",
         :updated_at => "2015-11-26 15:37:23",
-        :password => "1234"
+        :password => "hytui12"
     })
     Hotel.create!({
         :name => "Miami Airport Marriott",
-        :email => "Shalaka.Mcfarlane@marriott.com",
+        :email => "shalaka.mcfarlane@marriott.com",
         :single => "0",
         :double => "0",
         :created_at => "2015-11-26 15:37:23",
         :updated_at => "2015-11-26 15:37:23",
-        :password => "1234"
+        :password => "grfh87"
     })
     Hotel.create!({
         :name => "Miami Airport Courtyard",
-        :email => "Shalaka.Mcfarlane@marriott.com",
+        :email => "shalaka.mcfarlane@marriott.com",
         :single => "0",
         :double => "0",
         :created_at => "2015-11-26 15:37:23",
         :updated_at => "2015-11-26 15:37:23",
-        :password => "1234"
+        :password => "yty56"
     })
     Hotel.create!({
         :name => "Miami Airport Residence Inn",
-        :email => "Shalaka.Mcfarlane@marriott.com",
+        :email => "shalaka.mcfarlane@marriott.com",
         :single => "0",
         :double => "0",
         :created_at => "2015-11-26 15:37:23",
         :updated_at => "2015-11-26 15:37:23",
-        :password => "1234"
+        :password => "nhty23"
     })
     Hotel.create!({
         :name => "DoubleTree by Hilton Miami Airport Convention Center",
@@ -52,7 +52,7 @@ class AddHotels < SeedMigration::Migration
         :double => "0",
         :created_at => "2015-11-26 15:37:23",
         :updated_at => "2015-11-26 15:37:23",
-        :password => "1234"
+        :password => "plok89"
     })
     Hotel.create!({
         :name => "Hyatt Place Miami Airport West / Doral",
@@ -61,7 +61,7 @@ class AddHotels < SeedMigration::Migration
         :double => "0",
         :created_at => "2015-11-26 15:37:23",
         :updated_at => "2015-11-26 15:37:23",
-        :password => "1234"
+        :password => "tyru78"
     })
     Hotel.create!({
         :name => "Intercontinental Hotel west Doral",
@@ -70,16 +70,16 @@ class AddHotels < SeedMigration::Migration
         :double => "0",
         :created_at => "2015-11-26 15:37:23",
         :updated_at => "2015-11-26 15:37:23",
-        :password => "1234"
+        :password => "yhtr32"
     })
     Hotel.create!({
         :name => "Hyatt Regency Miami",
-        :email => "Alvaro.rodriguez@hyatt.com",
+        :email => "alvaro.rodriguez@hyatt.com",
         :single => "0",
         :double => "0",
         :created_at => "2015-11-26 15:37:23",
         :updated_at => "2015-11-26 15:37:23",
-        :password => "1234"
+        :password => "fgte45"
     })
     Hotel.create!({
         :name => "Marriott Dadeland",
@@ -88,7 +88,7 @@ class AddHotels < SeedMigration::Migration
         :double => "0",
         :created_at => "2015-11-26 15:37:23",
         :updated_at => "2015-11-26 15:37:23",
-        :password => "1234"
+        :password => "jmnhy64"
     })
     Hotel.create!({
         :name => "Bonaventure Resort",
@@ -97,109 +97,109 @@ class AddHotels < SeedMigration::Migration
         :double => "0",
         :created_at => "2015-11-26 15:37:23",
         :updated_at => "2015-11-26 15:37:23",
-        :password => "1234"
+        :password => "sdfre67"
     })
   end
 
   def down
-  	Hotel.destroy_all({
+  	Hotel.create!({
         :name => "Holiday Inn Miami International",
-        :email => "Walter@himiaia.com",
+        :email => "walter@himiaia.com",
         :single => "0",
         :double => "0",
         :created_at => "2015-11-26 15:37:23",
         :updated_at => "2015-11-26 15:37:23",
-        :password => "1234"
+        :password => "rtge56"
     })
-    Hotel.destroy_all({
+    Hotel.create!({
         :name => "Miami Airport Sheraton",
-        :email => "Jnieto@sheratonmiamiairport.com",
+        :email => "jnieto@sheratonmiamiairport.com",
         :single => "0",
         :double => "0",
         :created_at => "2015-11-26 15:37:23",
         :updated_at => "2015-11-26 15:37:23",
-        :password => "1234"
+        :password => "hytui12"
     })
-    Hotel.destroy_all({
+    Hotel.create!({
         :name => "Miami Airport Marriott",
-        :email => "Shalaka.Mcfarlane@marriott.com",
+        :email => "shalaka.mcfarlane@marriott.com",
         :single => "0",
         :double => "0",
         :created_at => "2015-11-26 15:37:23",
         :updated_at => "2015-11-26 15:37:23",
-        :password => "1234"
+        :password => "grfh87"
     })
-    Hotel.destroy_all({
+    Hotel.create!({
         :name => "Miami Airport Courtyard",
-        :email => "Shalaka.Mcfarlane@marriott.com",
+        :email => "shalaka.mcfarlane@marriott.com",
         :single => "0",
         :double => "0",
         :created_at => "2015-11-26 15:37:23",
         :updated_at => "2015-11-26 15:37:23",
-        :password => "1234"
+        :password => "yty56"
     })
-    Hotel.destroy_all({
+    Hotel.create!({
         :name => "Miami Airport Residence Inn",
-        :email => "Shalaka.Mcfarlane@marriott.com",
+        :email => "shalaka.mcfarlane@marriott.com",
         :single => "0",
         :double => "0",
         :created_at => "2015-11-26 15:37:23",
         :updated_at => "2015-11-26 15:37:23",
-        :password => "1234"
+        :password => "nhty23"
     })
-    Hotel.destroy_all({
+    Hotel.create!({
         :name => "DoubleTree by Hilton Miami Airport Convention Center",
         :email => "jvasquez@doubletreemacc.com",
         :single => "0",
         :double => "0",
         :created_at => "2015-11-26 15:37:23",
         :updated_at => "2015-11-26 15:37:23",
-        :password => "1234"
+        :password => "plok89"
     })
-    Hotel.destroy_all({
+    Hotel.create!({
         :name => "Hyatt Place Miami Airport West / Doral",
         :email => "jannina.leon@hyatt.com",
         :single => "0",
         :double => "0",
         :created_at => "2015-11-26 15:37:23",
         :updated_at => "2015-11-26 15:37:23",
-        :password => "1234"
+        :password => "tyru78"
     })
-    Hotel.destroy_all({
+    Hotel.create!({
         :name => "Intercontinental Hotel west Doral",
         :email => "edric.ruiz@r-hr.com",
         :single => "0",
         :double => "0",
         :created_at => "2015-11-26 15:37:23",
         :updated_at => "2015-11-26 15:37:23",
-        :password => "1234"
+        :password => "yhtr32"
     })
-    Hotel.destroy_all({
+    Hotel.create!({
         :name => "Hyatt Regency Miami",
-        :email => "Alvaro.rodriguez@hyatt.com",
+        :email => "alvaro.rodriguez@hyatt.com",
         :single => "0",
         :double => "0",
         :created_at => "2015-11-26 15:37:23",
         :updated_at => "2015-11-26 15:37:23",
-        :password => "1234"
+        :password => "fgte45"
     })
-    Hotel.destroy_all({
+    Hotel.create!({
         :name => "Marriott Dadeland",
         :email => "cidelia.louis@mdmusa.com",
         :single => "0",
         :double => "0",
         :created_at => "2015-11-26 15:37:23",
         :updated_at => "2015-11-26 15:37:23",
-        :password => "1234"
+        :password => "jmnhy64"
     })
-    Hotel.destroy_all({
+    Hotel.create!({
         :name => "Bonaventure Resort",
         :email => "rramirez@bonaventurefl.com",
         :single => "0",
         :double => "0",
         :created_at => "2015-11-26 15:37:23",
         :updated_at => "2015-11-26 15:37:23",
-        :password => "1234"
+        :password => "sdfre67"
     })
   end
 end

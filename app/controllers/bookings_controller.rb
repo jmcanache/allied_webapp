@@ -77,15 +77,16 @@ class BookingsController < ApplicationController
           if !new_newsletter then Newsletter.create(email: booking_params[:email]) end
         end
         #hotel_recipient = [hotel.email, hotel.name]
+        #guest_recipient = [@booking.email, @booking.name]
+        #allied_recipient = ['m.rolo@allied-hospitality.com', 'Allied Hospitality']
+
         guest_recipient = [@booking.email, @booking.name]
         hotel_recipient = ['gfernandez@yirehcs.com', hotel.name]
         allied_recipient = ['m.rolo@allied-hospitality.com', 'Allied Hospitality']
 
-        send = [hotel_recipient, allied_recipient] 
-        send.each do |send_to|
-         Notifier.send_booking_request(send_to[0], send_to[1], @booking, hotel.name).deliver_now
-        end
+        Notifier.send_booking_request(hotel_recipient[0], hotel_recipient[1], @booking, hotel.name).deliver_now
         Notifier.send_booking_request(guest_recipient[0], guest_recipient[1], @booking, hotel.name).deliver_now
+        Notifier.send_booking_request(allied_recipient[0], allied_recipient[1], @booking, hotel.name).deliver_now
         
         redirect_to :action => 'new', notice: "You had request a new booking" 
       else

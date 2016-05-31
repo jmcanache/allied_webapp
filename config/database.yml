@@ -102,24 +102,24 @@ development:
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
-  <<: *global
+  <<: *global                                 
   database: allied_test
+
+#production:
+#  adapter: mysql2
+# encoding: utf8
+# reconnect: true
+# host: <%= ENV['DATABASE_HOST'] %>
+# username: <%= ENV['DATABASE_USER'] %>
+# password: <%= ENV['DATABASE_PASSWORD'] %>
+# database: <%= ENV['DATABASE_NAME'] %>
 
 production:
   adapter: mysql2
   encoding: utf8
   reconnect: true
-  host: <%= ENV['DATABASE_HOST'] %>
-  username: <%= ENV['DATABASE_USER'] %>
-  password: <%= ENV['DATABASE_PASSWORD'] %>
-  database: <%= ENV['DATABASE_NAME'] %>
-
-# production:
-#   adapter: mysql2
-#   encoding: utf8
-#   reconnect: true
-#   host: 72.167.233.103
-#   username: alliedproduction
-#   password: aA1!1234
-#   database: alliedproduction
+  host: 72.167.233.103
+  username: alliedproduction
+  password: aA1!1234
+  database: alliedproduction
   

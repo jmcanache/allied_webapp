@@ -76,13 +76,13 @@ class BookingsController < ApplicationController
           new_newsletter = Newsletter.email_exist?(booking_params[:email])
           if !new_newsletter then Newsletter.create(email: booking_params[:email]) end
         end
-        #hotel_recipient = [hotel.email, hotel.name]
-        #guest_recipient = [@booking.email, @booking.name]
-        #allied_recipient = ['m.rolo@allied-hospitality.com', 'Allied Hospitality']
-
+        hotel_recipient = [hotel.email, hotel.name]
         guest_recipient = [@booking.email, @booking.name]
-        hotel_recipient = ['gfernandez@yirehcs.com', hotel.name]
         allied_recipient = ['m.rolo@allied-hospitality.com', 'Allied Hospitality']
+
+        #guest_recipient = [@booking.email, @booking.name]
+        #hotel_recipient = ['gfernandez@yirehcs.com', hotel.name]
+        #allied_recipient = ['m.rolo@allied-hospitality.com', 'Allied Hospitality']
 
         Notifier.send_booking_request(hotel_recipient[0], hotel_recipient[1], @booking, hotel.name).deliver_now
         Notifier.send_booking_request(guest_recipient[0], guest_recipient[1], @booking, hotel.name).deliver_now

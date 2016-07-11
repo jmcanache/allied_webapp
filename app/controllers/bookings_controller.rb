@@ -1,4 +1,9 @@
 class BookingsController < ApplicationController
+
+  def index
+    render layout: false
+  end
+
   def new
     @booking = Booking.new
     @booking.build_creditcard

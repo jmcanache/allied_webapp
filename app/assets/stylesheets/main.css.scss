@@ -78,3 +78,31 @@ ul {
   border-radius:4px;
 }
 
+.clip1{
+  background: image-url("main_slide_1.png");
+  background-position: 50% 50%;
+  background-repeat: no-repeat; 
+  background-attachment: scroll;
+  -moz-background-size: cover;
+  -ms-background-size: cover;
+  background-size: cover;
+}
+
+.clip2{
+  background: image-url("slider2.png");
+  background-position: 50% 50%;
+  background-repeat: no-repeat; 
+  background-attachment: scroll;
+  -moz-background-size: cover;
+  -ms-background-size: cover;
+  background-size: cover;
+}
+
+.fixed_block{
+    position: relative;
+    width: 100%;
+    height: 420px;
+    background: image-url('bg_1.jpg') no-repeat fixed;
+    background-size: cover;
+    background-position: right;
+}

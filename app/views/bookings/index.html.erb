@@ -481,29 +481,32 @@ style.firebugResetStyles {
 		</div>
 		<div class="row">
 			<div class="col-xs-12 col-sm-8">
-				<form class="contact-form">
-					<div class="row">
-						<div class="col-xs-12 col-sm-6">
-							<div class="input-style-1 type-2 color-2">
-							  	<input type="text" placeholder="Enter your name" required="">
-							</div>
-						</div>
-						<div class="col-xs-12 col-sm-6">
-							<div class="input-style-1 type-2 color-2">
-							  	<input type="text" placeholder="Enter your email" required="">
-							</div>
-						</div>
-						<div class="col-xs-12 col-sm-12">
-							<div class="input-style-1 type-2 color-2">
-							  	<input type="text" placeholder="Subject" required="">
-							</div>
-						</div>	
-						<div class="col-xs-12">
-							<textarea placeholder="Enter your comment" required="" class="area-style-1 color-1"></textarea>
-							<button class="c-button bg-blue-2 hv-blue-2-o" type="submit"><span>submit</span></button>
-						</div>
-					</div>					
-				</form>
+        <div class="alert alert-success" id="message_success"><button type="button" class="close close-message"><span aria-hidden="true">&times;</span></button>Message delivered.</div>
+        <div class="alert alert-danger" id="message_error"><button type="button" class="close close-message"><span aria-hidden="true">&times;</span></button>Ups!! Something went wrong, try it again.</div>
+        <%= form_tag email_path, method: "post", class: "contact-form", id: "form_en" do %>
+          <div class="row">
+            <div class="col-xs-12 col-sm-6">
+              <div class="input-style-1 type-2 color-2">
+                  <input name="name" type="text" placeholder="Enter your name" required="">
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-6">
+              <div class="input-style-1 type-2 color-2">
+                  <input name="email" type="email" placeholder="Enter your email" required="">
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-12">
+              <div class="input-style-1 type-2 color-2">
+                  <input name="subject" type="text" placeholder="Subject" required="">
+              </div>
+            </div>  
+            <div class="col-xs-12">
+              <textarea name="comment" placeholder="Enter your comment" required="" class="area-style-1 color-1"></textarea>
+              <button class="c-button bg-blue-2 hv-blue-2-o" id="btn_submit" type="submit"><span>submit</span></button>
+            </div>
+          </div>
+        <% end %>
+
 			</div>
 			<div class="col-xs-12 col-sm-4">
 				<div class="contact-about">

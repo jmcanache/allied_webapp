@@ -22,6 +22,7 @@ Rails.application.routes.draw do
   get 'bookings/update'
   get 'bookings/delete'
   get 'bookings/report'
+  post 'email' => 'bookings#contact_email' 
 
   post 'bookings/create'
   post 'bookings/process_report'

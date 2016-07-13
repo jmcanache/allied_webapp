@@ -950,4 +950,30 @@ $(function() {
         e.preventDefault(); 
 
     });
+
+	var frm = $('#form_en');
+    $('body').delegate('#form_en', 'submit', function (ev) {
+        ev.preventDefault();
+        ev.stopImmediatePropagation();;
+        $('#btn_submit').attr('disabled', 'disabled');
+        $('#btn_submit').html('<span>Sending</span> <i class="fa fa-spinner fa-spin fa-lg" aria-hidden="true"></i>');
+        $.ajax({
+            type: 'POST',
+            url: frm.attr('action'),
+            data: frm.serialize(),
+            async: true,
+            cache: false,
+            success: function (d) {
+            	$('.alert').fadeOut();
+                (d == 1)? $('#message_success').fadeIn() : $('#message_error').fadeIn();
+                $('#btn_submit').removeAttr('disabled');
+                $('#btn_submit').html('<span>Submit</span>');
+            }
+        });
+    });
+
+    $('.close-message').click(function(){
+    	$('.alert').fadeOut();
+    })
+
 });

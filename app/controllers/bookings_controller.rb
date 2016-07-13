@@ -132,6 +132,18 @@ class BookingsController < ApplicationController
      @records = @records.sort_by &:comments
   end
 
+  def contact_email
+    if Notifier.contact_us(params).deliver
+      respond_to do |format|
+        format.json { render json: 1 }
+      end
+    else
+      respond_to do |format|
+          format.json { render json: 0 }
+        end
+    end
+  end
+
   private
   def booking_params
     params.require(:booking).permit(:email, :name, :flight_type, :airport, :hotel_id, :single, :double, :datein, :dateout, :comments, :airline, creditcard_attributes: [:name, :card_number, :zip_code, :verification_code])

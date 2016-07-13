@@ -11,6 +11,6 @@ class Notifier < ApplicationMailer
 
 	def contact_us(params)
 		@data = params
-		mail( :to => 'canache39@gmail.com', :subject => params[:subject])
+		mail( :to => 'm.rolo@allied-hospitality.com', :subject => params[:subject])
 	end
 end

@@ -46,7 +46,7 @@ class BookingsController < ApplicationController
 
     #Find hotel total rooms
     hotel = Hotel.find(booking_params[:hotel_id])
-
+    logger.debug(hotel.inspect)
     if records_overlaping.blank?
       if hotel[:single] > booking_params[:single].to_i and hotel[:double] > booking_params[:double].to_i
         new_booking = true
@@ -86,8 +86,8 @@ class BookingsController < ApplicationController
         #allied_recipient = ['m.rolo@allied-hospitality.com', 'Allied Hospitality']
 
         guest_recipient = [@booking.email, @booking.name]
-        hotel_recipient = ['gfernandez@yirehcs.com', hotel.name]
-        allied_recipient = ['m.rolo@allied-hospitality.com', 'Allied Hospitality']
+        hotel_recipient = [hotel.email, hotel.name]
+        allied_recipient = ['m.rolo@allied-hospitality.com, j.santiago@allied-hospitality.com', 'Allied Hospitality']
 
         Notifier.send_booking_request(hotel_recipient[0], hotel_recipient[1], @booking, hotel.name).deliver_now
         Notifier.send_booking_request(guest_recipient[0], guest_recipient[1], @booking, hotel.name).deliver_now

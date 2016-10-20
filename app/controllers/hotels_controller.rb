@@ -24,55 +24,75 @@ class HotelsController < ApplicationController
   def sign_out
   	session.delete(:hotel_id)
   	session.delete(:admin)
+    session.delete(:current_user)
   	redirect_to action: 'sign_in'
   end
 
+  def change_password
+    if session[:admin].blank? and session[:hotel_id].blank?
+      redirect_to action: 'sign_in', warning: "You need to log in first"
+    end    
+  end
+
+  def update_password
+    if !session[:admin].blank?
+      admin = Admin.valid_admin_pass(session[:current_user], params)
+      if admin
+        admin.update_attribute('password', params[:new_password])
+        redirect_to action: 'all_rooms', notice: "Password changed"
+      else
+        redirect_to action: 'change_password', alert: "something went wrong, try again."
+      end
+    else
+      hotel = Hotel.valid_hotel_pass(session[:current_user], params)
+      if hotel
+        hotel.update_attribute('password', params[:new_password])
+        redirect_to action: 'rooms', notice: "Password changed"
+      else
+        redirect_to action: 'change_password', alert: "something went wrong, try again."
+      end
+    end
+  end
+
   def check_user
-  	if params[:email] == "admin@email.com" and params[:password] == "1234"
-		session[:admin] = true
-		redirect_to action: 'all_rooms'
-	else
-		user = Hotel.valid_user(params)
-		if user
-	  		session[:hotel_id] = user.id
-	  		redirect_to action: 'rooms'
-	  	else
-			redirect_to action: 'sign_in', alert: "Email or password incorrect."
-	  	end
-	end
+    if Admin.valid_admin(params)
+  		session[:admin] = true
+      session[:current_user] = params[:email]
+  		redirect_to action: 'all_rooms'
+  	else
+  		user = Hotel.valid_user(params)
+  		if user
+  	  		session[:hotel_id] = user.id
+          session[:current_user] = params[:email]
+  	  		redirect_to action: 'rooms'
+  	  	else
+  			redirect_to action: 'sign_in', alert: "Email or password incorrect."
+  	  	end
+  	end
   end
 
   def all_rooms
   	if session[:admin].blank?
   		redirect_to action: 'sign_in', warning: "Only admins have access"
-	else
-		@hotels = Hotel.all
-	end
+  	else
+  		@hotel = Hotel.all
+      render action: 'rooms'
+  	end
   end
 
   def rooms
   	if session[:hotel_id].blank?
   		redirect_to action: 'sign_in', warning: "Only users have access."
   	else
-  		@hotel = Hotel.find_hotel(session[:hotel_id])
+  		@hotel = Hotel.where(email: session[:current_user]).all
   	end
   end
 
   def update_rooms
-  	hotel = Hotel.update_data(params, session[:hotel_id])
-  	if hotel
-  		redirect_to action: 'rooms', notice: "Rooms update successfully."
-  	else 
-  		redirect_to action: 'rooms', alert: "Try again." 
-  	end
-  end
-
-  def update_rooms_admin
   	hotel = Hotel.update_data(params, params[:hotel])
-  	save = hotel ? true : false
-	respond_to do |format|
-	    format.json { render json: hotel }
-	end  
+  	respond_to do |format|
+        format.json { render json: hotel }
+    end  
   end
 
   def get_rooms

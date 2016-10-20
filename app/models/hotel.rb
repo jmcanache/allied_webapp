@@ -15,4 +15,8 @@ class Hotel < ActiveRecord::Base
 	def self.update_data(params, id)
 		update(id, single: params[:single], double: params[:double]).valid?
 	end
+
+	def self.valid_hotel_pass(user, data)
+		find_by(email:user, password:data[:old_password])
+	end
 end

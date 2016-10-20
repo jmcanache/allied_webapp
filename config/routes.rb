@@ -7,14 +7,15 @@ Rails.application.routes.draw do
   get 'hotels/sign_out'
   get 'hotels/rooms'
   get 'hotels/all_rooms'
+  get 'hotels/change_password'
 
   post 'hotels/update_rooms'
-  post 'hotels/update_rooms_admin'
   post 'hotels/check_user'
   post 'hotels/rooms'
   post 'hotels/all_rooms'
   post 'hotels/sign_out'
   post 'hotels/get_rooms'
+  post 'hotels/update_password'
 
   get 'bookings/new'
   get 'bookings/create'

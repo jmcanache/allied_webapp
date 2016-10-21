@@ -33,8 +33,8 @@
       <div class="col-sm-4"><%= b.label :hotel %><%= b.select :hotel_id, options_from_collection_for_select(@hotels, "id", "name"), {}, class: "form-control"%></div>
     </div>
     <div class="form-group">
-      <div class="col-sm-4"><%= b.label :single %><%= b.number_field :single, min:0, class: "form-control", placeholder: "0"%></div>
-      <div class="col-sm-4"><%= b.label :double %><%= b.number_field :double, min:0, class: "form-control", placeholder: "0"%></div>
+      <div class="col-sm-4"><%= b.label :single %><%= b.number_field :single, min:0, class: "form-control", placeholder: "0"%>Price per day: <span id="price_single"><%= @first_hotel[:price_single] %></span>$</div>
+      <div class="col-sm-4"><%= b.label :double %><%= b.number_field :double, min:0, class: "form-control", placeholder: "0"%>Price per day: <span id="price_double"><%= @first_hotel[:price_double] %></span>$</div>
     </div>
     <div class="form-group">
       <div class="col-sm-4"><%= b.label :CheckIn,  class: "control-label" %><div class="input-group date"><%= b.text_field :datein, class: "form-control", required: "required", placeholder: "yyyy/mm/dd"%><div class="input-group-addon"><i class="fa fa-calendar"></i></div></div><p class="help-block" style="display: none">Dates error.</p></div>
@@ -71,7 +71,10 @@
       <div class="col-sm-8"><%= b.label :comments %><%= b.text_area :comments, class: "form-control", placeholder: "Let us know if you need anything else."%></div>
     </div>
     <div class="form-group">
-      <div class="col-sm-8">
+      <div class="col-xs-3">
+        <p class="price-fix">Total price: <span id="price_total">0.00</span>$</p>
+      </div>
+      <div class="col-sm-5">
         <%= b.submit "Create Booking", class: "btn btn-primary pull-right", remote: true %>
       </div>
     </div>
@@ -102,5 +105,47 @@
     $('#new_booking').submit(function(e){
       if($(this).find('.has-error').length > 0) e.preventDefault();
     })
+
+    $('#booking_hotel_id').change(function(){
+      var hotel_id = $(this).find(":selected").val();
+      $.ajax({
+                type: 'POST',
+                url: 'get_prices',
+                data: {id: hotel_id},
+                async: true,
+                cache: false,
+                success: function (d) {
+                  $('#price_single').text(d.price_single);
+                  $('#price_double').text(d.price_double);
+                  changeTotal();
+                }
+            });
+    })
+
+    $('#booking_single, #booking_double, #booking_datein, #booking_dateout').change(function(){
+      changeTotal();
+    });
+
+    function changeTotal(){
+      var single_rooms = $('#booking_single').val();
+      var double_rooms = $('#booking_double').val();
+      var valDateIn = $('#booking_datein').val();
+      var valDateOut = $('#booking_dateout').val();
+      var price_single = $('#price_single').text();
+      var price_double = $('#price_double').text();
+      var dateIn = new Date(Date.parse(valDateIn, "yyyy/mm/dd"));
+      var dateOut = new Date(Date.parse(valDateOut, "yyyy/mm/dd"));
+
+      if(valDateIn != "" && valDateOut != ""){
+        var days = (dateOut - dateIn)/(1000*3600*24);
+        if(days > 0){
+          var total = days * ((single_rooms * price_single) + (double_rooms * price_double));
+          $('#price_total').text(total.toFixed(2));
+        }else{
+          $('#price_total').text('0.00');
+        }
+      }
+    }
+
   });
 </script>

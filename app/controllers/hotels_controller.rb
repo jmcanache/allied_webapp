@@ -96,9 +96,9 @@ class HotelsController < ApplicationController
   end
 
   def get_rooms
-    	hotel = Hotel.find_hotel(params[:id])
-    	rooms = {single: hotel[:single], doubles: hotel[:double], price_single: hotel[:price_single], price_double: hotel[:price_double]}
-    	respond_to do |format|
+  	hotel = Hotel.find_hotel(params[:id])
+  	rooms = {single: hotel[:single], doubles: hotel[:double], price_single: hotel[:price_single], price_double: hotel[:price_double]}
+  	respond_to do |format|
   	    format.json { render json: rooms }
   	end
   end

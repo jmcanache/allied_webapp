@@ -8,6 +8,7 @@ class BookingsController < ApplicationController
     @booking = Booking.new
     @booking.build_creditcard
   	@hotels = Hotel.all.order(:name)
+    @first_hotel = @hotels.first
     @airline = ['Aerolineas Argentinas', 
                 'Aeromexico',
                 'Air Berlin',
@@ -141,6 +142,14 @@ class BookingsController < ApplicationController
       respond_to do |format|
           format.json { render json: 0 }
         end
+    end
+  end
+
+  def get_prices
+    hotel = Hotel.find_hotel(params[:id])
+    prices = {price_single: hotel[:price_single], price_double: hotel[:price_double]}
+    respond_to do |format|
+        format.json { render json: prices }
     end
   end
 

@@ -39,6 +39,9 @@ gem 'puma'
 
 gem 'seed_migration'
 
+# Gema para gestion de permisos
+gem "rails_12factor"
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

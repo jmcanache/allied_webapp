@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161019174024) do
+ActiveRecord::Schema.define(version: 20161020223320) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -53,13 +53,15 @@ ActiveRecord::Schema.define(version: 20161019174024) do
   add_index "creditcards", ["booking_id"], name: "index_creditcards_on_booking_id", using: :btree
 
   create_table "hotels", force: :cascade do |t|
-    t.string   "name",       limit: 255
-    t.string   "email",      limit: 255
-    t.integer  "single",     limit: 4
-    t.integer  "double",     limit: 4
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-    t.string   "password",   limit: 255
+    t.string   "name",         limit: 255
+    t.string   "email",        limit: 255
+    t.integer  "single",       limit: 4
+    t.integer  "double",       limit: 4
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
+    t.string   "password",     limit: 255
+    t.float    "price_single", limit: 24,  default: 0.0
+    t.float    "price_double", limit: 24,  default: 0.0
   end
 
   create_table "newsletters", force: :cascade do |t|

@@ -13,7 +13,7 @@ class Hotel < ActiveRecord::Base
 	end
 
 	def self.update_data(params, id)
-		update(id, single: params[:single], double: params[:double]).valid?
+		update(id, single: params[:single], double: params[:double], price_single: params[:price_single], price_double: params[:price_double]).valid?
 	end
 
 	def self.valid_hotel_pass(user, data)

@@ -9,9 +9,11 @@ class BookingsController < ApplicationController
     @booking.build_creditcard
   	@hotels = Hotel.all.order(:name)
     @first_hotel = @hotels.first
-    @airline = ['Aerolineas Argentinas', 
+    @airline = ['None',
+                'Aerolineas Argentinas', 
                 'Aeromexico',
                 'Air Berlin',
+                'Airlines',
                 'Air France',
                 'Alitalia',
                 'American Airlines',
@@ -45,9 +47,13 @@ class BookingsController < ApplicationController
     records_overlaping = Booking.in_range(booking_params[:datein],booking_params[:dateout], booking_params[:hotel_id])
     new_booking = false
 
+    #single and double rooms 0
+    if booking_params[:single] == "0" and booking_params[:double] == "0"
+      return redirect_to :action => 'new', alert: "Something wrong happened, please try again"
+    end
+
     #Find hotel total rooms
     hotel = Hotel.find(booking_params[:hotel_id])
-    logger.debug(hotel.inspect)
     if records_overlaping.blank?
       if hotel[:single] > booking_params[:single].to_i and hotel[:double] > booking_params[:double].to_i
         new_booking = true
@@ -78,6 +84,10 @@ class BookingsController < ApplicationController
     if new_booking
       @booking = Booking.new(booking_params)
       if @booking.save
+        if booking_params[:airline] == "Airlines"
+          delete_id = Creditcard.last
+          Creditcard.delete(delete_id[:id])
+        end
         if params[:info_email_status] == "1"
           new_newsletter = Newsletter.email_exist?(booking_params[:email])
           if !new_newsletter then Newsletter.create(email: booking_params[:email]) end
@@ -87,13 +97,15 @@ class BookingsController < ApplicationController
         #allied_recipient = ['m.rolo@allied-hospitality.com', 'Allied Hospitality']
 
         guest_recipient = [@booking.email, @booking.name]
-        hotel_recipient = [hotel.email, hotel.name]
-        allied_recipient = ['m.rolo@allied-hospitality.com, j.santiago@allied-hospitality.com', 'Allied Hospitality']
+        #hotel_recipient = [hotel.email, hotel.name]
+        #allied_recipient = ['m.rolo@allied-hospitality.com, j.santiago@allied-hospitality.com', 'Allied Hospitality']
+        allied_recipient = ['canache39@gmail.com', 'Allied Hospitality']
+        hotel_recipient = ['canache39@gmail.com', hotel.name]
 
         Notifier.send_booking_request(hotel_recipient[0], hotel_recipient[1], @booking, hotel.name).deliver_now
         Notifier.send_booking_request(guest_recipient[0], guest_recipient[1], @booking, hotel.name).deliver_now
         Notifier.send_booking_request(allied_recipient[0], allied_recipient[1], @booking, hotel.name).deliver_now
-        
+
         redirect_to :action => 'new', notice: "You had request a new booking" 
       else
          @hotels = Hotel.all
@@ -102,7 +114,6 @@ class BookingsController < ApplicationController
     else
       redirect_to :action => 'new', alert: "There is no room availability, please change your dates"
     end
-
   end
 
   def edit

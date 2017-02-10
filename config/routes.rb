@@ -26,6 +26,10 @@ Rails.application.routes.draw do
   post 'bookings/get_prices'
   post 'email' => 'bookings#contact_email' 
 
+  get 'bookings_airlines/new'
+  post 'bookings_airlines/create'
+  post 'bookings_airlines/get_prices'
+
   post 'bookings/create'
   post 'bookings/process_report'
   # The priority is based upon order of creation: first created -> highest priority.

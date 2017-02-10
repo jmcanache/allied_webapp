@@ -9,42 +9,12 @@ class BookingsController < ApplicationController
     @booking.build_creditcard
   	@hotels = Hotel.all.order(:name)
     @first_hotel = @hotels.first
-    @airline = ['None',
-                'Aerolineas Argentinas', 
-                'Aeromexico',
-                'Air Berlin',
-                'Airlines',
-                'Air France',
-                'Alitalia',
-                'American Airlines',
-                'American Eagle',
-                'Avianca',
-                'Bahamas Air',
-                'British Airways',
-                'Copa Airlines',
-                'Gol Airlines',
-                'Iberia',
-                'Interjet',
-                'Lan Argentina',
-                'Lan Chile',
-                'Lan Colombia',
-                'Lan Ecuador',
-                'Lan Peru',
-                'Luthansa',
-                'Qatar Airways',
-                'Santa Barbara Airlines',
-                'Swiss Air',
-                'Taca',
-                'Tam Brazilian Airlines',
-                'Tap Air Portugal',
-                'Transaero',
-                'United Airlines',
-                'Virgin Atlantic']
-    @default_airline = @airline[0]
+    @airline = Airline.all.order(:name)
   end
 
   def create
     records_overlaping = Booking.in_range(booking_params[:datein],booking_params[:dateout], booking_params[:hotel_id])
+    records_overlaping_airline = BookingsAirline.in_range(booking_params[:datein],booking_params[:dateout], booking_params[:hotel_id])
     new_booking = false
 
     #single and double rooms 0
@@ -55,7 +25,7 @@ class BookingsController < ApplicationController
     #Find hotel total rooms
     hotel = Hotel.find(booking_params[:hotel_id])
     if records_overlaping.blank?
-      if hotel[:single] > booking_params[:single].to_i and hotel[:double] > booking_params[:double].to_i
+      if hotel[:single] >= booking_params[:single].to_i and hotel[:double] >= booking_params[:double].to_i
         new_booking = true
       end
     else #There are records overlaping, gotta check room availability.
@@ -63,6 +33,10 @@ class BookingsController < ApplicationController
       #Count how many rooms are currently busy
       single = double = 0
       records_overlaping.each do |r|
+        single += r[:single].to_i
+        double += r[:double].to_i
+      end
+      records_overlaping_airline.each do |r|
         single += r[:single].to_i
         double += r[:double].to_i
       end
@@ -84,10 +58,6 @@ class BookingsController < ApplicationController
     if new_booking
       @booking = Booking.new(booking_params)
       if @booking.save
-        if booking_params[:airline] == "Airlines"
-          delete_id = Creditcard.last
-          Creditcard.delete(delete_id[:id])
-        end
         if params[:info_email_status] == "1"
           new_newsletter = Newsletter.email_exist?(booking_params[:email])
           if !new_newsletter then Newsletter.create(email: booking_params[:email]) end
@@ -128,20 +98,25 @@ class BookingsController < ApplicationController
   def report
     @records = []
     @hotels = Hotel.all.order(:name)
+    @airlines = Airline.all.order(:name)
   end
 
   def process_report
     @date_in = params[:date_in]
     @date_out = params[:date_out]
-    @hotel_id = params[:hotel]
-    @hotel_id == "0" ?  @records = Booking.in_range_report(@date_in,@date_out) : @records = Booking.in_range(@date_in,@date_out,@hotel_id)
-    @records.each do |record|
-      hotel = Hotel.find(record[:hotel_id])
-      #for now the name is stored in comments because this filed is not used it in the report
-      record[:comments] = hotel[:name]
+    hotel_id = params[:hotel]
+    @all_records = []
+    if params[:customers_airlines] == "0"
+      hotel_id == "0" ?  records = Booking.in_range_report(@date_in,@date_out) : records = Booking.in_range(@date_in,@date_out,hotel_id)
+      @airline = false
+    else
+      hotel_id == "0" ?  records = BookingsAirline.in_range_report(@date_in,@date_out) : records = BookingsAirline.in_range(@date_in,@date_out,hotel_id)
+      @airline = true
     end
-    #reorder array by hotel name
-     @records = @records.sort_by &:comments
+    records.each do |f|
+      @all_records << f
+    end
+    @all_records = @all_records.sort_by &:datein
   end
 
   def contact_email
@@ -166,6 +141,6 @@ class BookingsController < ApplicationController
 
   private
   def booking_params
-    params.require(:booking).permit(:email, :name, :flight_type, :airport, :hotel_id, :single, :double, :datein, :dateout, :comments, :airline, creditcard_attributes: [:name, :card_number, :zip_code, :verification_code])
+    params.require(:booking).permit(:email, :name, :flight_type, :airport, :hotel_id, :single, :double, :datein, :dateout, :comments, :airline_id, creditcard_attributes: [:name, :card_number, :zip_code, :verification_code])
   end
 end

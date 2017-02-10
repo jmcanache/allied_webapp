@@ -1,5 +1,6 @@
 class Booking < ActiveRecord::Base
   belongs_to :hotel
+  belongs_to :airline
 
   has_one :creditcard
   accepts_nested_attributes_for :creditcard

@@ -14,6 +14,22 @@
 		</div>
 		<div class="form-group">
 		    <div class="col-sm-4">
+		    	<%= radio_button_tag 'customers_airlines', 0, true, id: 'customers_no' %>
+		    	<%= label_tag 'Customers', nil, class: "control-label", for: "customers_no" %>
+		    </div>
+		    <div class="col-sm-4">
+		    	<%= radio_button_tag 'customers_airlines', 1,false, id: 'airlines_no' %>
+		    	<%= label_tag 'Airlines', nil, class: "control-label", for: "airlines_no" %>
+		    </div>
+		</div>
+		<div class="form-group airlines" style="display:none">
+		    <div class="col-sm-8">
+		    	<%= label_tag :airline, nil, class: "control-label" %>
+				<%= select_tag :airline, options_from_collection_for_select(@airlines, "id", "name"), class: "form-control", required: "required" %>
+			</div>
+		</div>
+		<div class="form-group">
+		    <div class="col-sm-4">
 		    	<%= label_tag :date_in, nil, class: "control-label" %>
 		    	<div class="input-group date">
 		      		<%= text_field_tag :date_in, nil, class: "form-control date_picker", required: "required", placeholder: "yyyy/mm/dd"%>
@@ -64,5 +80,14 @@
     });
 
     $("#hotel").prepend("<option selected='selected' value='0'>All</option>");
+    $("#airline").prepend("<option selected='selected' value='0'>All</option>");
+
+    $("input[type='radio']").click(function(){
+	    if ($("#customers_no").is(":checked")){
+	    	$('.airlines').fadeOut();
+	    }else{
+	    	$('.airlines').fadeIn();
+	    }
+	});
   });
 </script>

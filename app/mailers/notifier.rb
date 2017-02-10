@@ -6,7 +6,15 @@ class Notifier < ApplicationMailer
 
 		mail( :to => recipient,
 			:subject => 'New booking request')
+	end
 
+	def send_booking_request_airline(recipient, gretings, booking, hotel)
+		@gretings = gretings
+		@booking = booking
+		@hotel = hotel
+
+		mail( :to => recipient,
+			:subject => 'New booking request')
 	end
 
 	def contact_us(params)

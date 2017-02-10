@@ -14,16 +14,8 @@
 <div class="container page-wrap">
   <%= form_for @booking, url: {action: "create"}, html: {class: "form-horizontal col-sm-offset-3"} do |b| %>
     <%= image_tag("logo.png", class: "col-sm-offset-1", size: "350x130", alt: "Logo", style: "margin-top: 20px; margin-bottom: 30px;") %>
-
     <div class="form-group">
-      <div class="col-sm-4"><%= b.label :name %><%= b.text_field :name, class: "form-control", placeholder: "Your full name"%></div>
-      <div class="col-sm-4">
-        <%= b.label :email %><%= b.email_field :email, class: "form-control", required: "required", placeholder: "example@example.com"%>
-        <div class="checkbox"><label><%=check_box_tag :info_email_status%>Check if you want to receive information by email</label></div>
-      </div>
-    </div>
-    <div class="form-group">
-      <div class="col-sm-8"><%= b.label :airline %><%= b.select :airline_id, options_from_collection_for_select(@airline, "id", "name"),{}, class: "form-control"%></div>
+      <div class="col-sm-8"><%= b.label :airline %><%= b.select :airline_id, options_from_collection_for_select(@airlines, "id", "name"), {}, class: "form-control"%></div>
     </div>
     <div class="form-group">
       <div class="col-sm-8"><%= b.label :flight_number %><%= b.text_field :flight_type, class: "form-control", required: "required", placeholder: "e.g: 444555666"%></div>
@@ -39,32 +31,6 @@
     <div class="form-group">
       <div class="col-sm-4"><%= b.label :CheckIn,  class: "control-label" %><div class="input-group date"><%= b.text_field :datein, class: "form-control", required: "required", placeholder: "yyyy/mm/dd"%><div class="input-group-addon"><i class="fa fa-calendar"></i></div></div><p class="help-block" style="display: none">Dates error.</p></div>
       <div class="col-sm-4"><%= b.label :CheckOut, class: "control-label" %><div class="input-group date"><%= b.text_field :dateout, class: "form-control", required: "required", placeholder: "yyyy/mm/dd"%><div class="input-group-addon"><i class="fa fa-calendar"></i></div></div></div>
-    </div>
-
-    <div class="form-group" id="b_creditCard">
-      <div class="col-sm-8">
-        <%= b.label :creditcard %>
-        <div class="border-gray row">
-          <%= b.fields_for :creditcard do |c| %>
-            <div class="col-sm-12" style="padding:1% 0">
-              <%= c.label :card_number, class: "control-label col-sm-3" %>
-              <div class="col-sm-8"><%= c.text_field :card_number, class: "form-control", min:0, max:16, placeholder: "16 digits", required: "required"%></div>
-            </div>
-            <div class="col-sm-12" style="padding:1% 0">
-              <%= c.label :name, class: "control-label col-sm-3" %>
-              <div class="col-sm-8"><%= c.text_field :name, class: "form-control", placeholder: "Owner name", required: "required"%></div>
-            </div>
-            <div class="col-sm-12" style="padding:1% 0">
-              <%= c.label :zip_code, class: "control-label col-sm-3" %>
-              <div class="col-sm-8"><%= c.number_field :zip_code, class: "form-control", min:0, placeholder: "0000", required: "required"%></div>
-            </div>
-            <div class="col-sm-12" style="padding:1% 0">
-              <%= c.label :verification_code, class: "control-label col-sm-3" %>
-              <div class="col-sm-8"><%= c.number_field :verification_code, class: "form-control", min:0, placeholder: "000", required: "required"%></div>
-            </div>
-          <% end %>
-        </div>
-      </div>
     </div>
 
     <div class="form-group">
@@ -90,23 +56,24 @@
       startDate: "t",
     });
 
-    $('#booking_datein').change(function(){
+    $('#bookings_airline_datein').change(function(){
       var dateIn = $(this).val()
-      var dateOut = $('#booking_dateout').val()
+      var dateOut = $('#bookings_airline_dateout').val()
       if(dateIn != null && dateOut != null)  Date.parse(dateIn) >= Date.parse(dateOut) ? $(this).closest('.form-group').addClass('has-error').find('.help-block').fadeIn() : $(this).closest('.form-group').removeClass('has-error').find('.help-block').fadeOut();
     });
 
-    $('#booking_dateout').change(function(){
-      var dateIn = $('#booking_datein').val()
+    $('#bookings_airline_dateout').change(function(){
+      var dateIn = $('#bookings_airline_datein').val()
       var dateOut = $(this).val() 
       if(dateIn != null && dateOut != null)  Date.parse(dateIn) >= Date.parse(dateOut) ? $(this).closest('.form-group').addClass('has-error').find('.help-block').fadeIn() : $(this).closest('.form-group').removeClass('has-error').find('.help-block').fadeOut();
     });
 
-    $('#new_booking').submit(function(e){
+    $('#new_bookings_airline').submit(function(e){
       if($(this).find('.has-error').length > 0) e.preventDefault();
     })
 
-    $('#booking_hotel_id').change(function(){
+    $('#bookings_airline_hotel_id').change(function(){
+      console.log('way');
       var hotel_id = $(this).find(":selected").val();
       $.ajax({
                 type: 'POST',
@@ -122,28 +89,15 @@
             });
     })
 
-    $('#booking_single, #booking_double, #booking_datein, #booking_dateout').change(function(){
+    $('#bookings_airline_single, #bookings_airline_double, #bookings_airline_datein, #bookings_airline_dateout').change(function(){
       changeTotal();
     });
 
-    $('#booking_airline').change(function(){
-      var airline = $(this).find(":selected").val();
-      if (airline == "Airlines"){
-        $('#b_creditCard').fadeOut(1000);
-        $('#b_creditCard input').each(function(){
-          $(this).removeAttr("required");
-        });
-      }else{
-        $('#b_creditCard').fadeIn(1000);
-        $('#b_creditCard input').attr("required", "required")
-      }
-    })
-
     function changeTotal(){
-      var single_rooms = $('#booking_single').val();
-      var double_rooms = $('#booking_double').val();
-      var valDateIn = $('#booking_datein').val();
-      var valDateOut = $('#booking_dateout').val();
+      var single_rooms = $('#bookings_airline_single').val();
+      var double_rooms = $('#bookings_airline_double').val();
+      var valDateIn = $('#bookings_airline_datein').val();
+      var valDateOut = $('#bookings_airline_dateout').val();
       var price_single = $('#price_single').text();
       var price_double = $('#price_double').text();
       var dateIn = new Date(Date.parse(valDateIn, "yyyy/mm/dd"));

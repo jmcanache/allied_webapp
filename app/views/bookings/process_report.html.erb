@@ -12,8 +12,10 @@
 	    <div class="col-sm-12">
 				<table class="table table-hover table-striped">
 					<thead>
-						<th>Name</th>
-						<th>Email</th>
+						<% if !@airline %>
+							<th>Name</th>
+							<th>Email</th>
+						<% end %>
 						<th>Airline</th>
 						<th>Airport</th>
 						<th>Hotel</th>
@@ -23,14 +25,16 @@
 						<th>Check-out</th>
 					</thead>
 				  <tbody>
-				  	<%if @records.any? %>
-					  	<% @records.each do |record| %>
+				  	<%if @all_records.any? %>
+					  	<% @all_records.each do |record| %>
 					  		<tr>
-						      <td><%= record[:name] %></td>
-						      <td><%= record[:email] %></td>
-						      <td><%= record[:airline] %></td>
+					  		  <% if !@airline %>
+								<td><%= record[:name] %></td>
+						      	<td><%= record[:email] %></td>
+							  <% end %>
+						      <td><%= record.airline.name %></td>
 						      <td><%= record[:airport]%></td>
-						      <td><%= record[:comments] %></td>
+						      <td><%= record.hotel.name %></td>
 						      <td><%= record[:single] %></td>
 						      <td><%= record[:double] %></td>
 						      <td><%= record[:datein] %></td>

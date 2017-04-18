@@ -502,7 +502,12 @@ style.firebugResetStyles {
             </div>  
             <div class="col-xs-12">
               <textarea name="comment" placeholder="Enter your comment" required="" class="area-style-1 color-1"></textarea>
-              <button class="c-button bg-blue-2 hv-blue-2-o" id="btn_submit" type="submit"><span>submit</span></button>
+            </div>
+            <div class="col-xs-12 col-sm-6">
+                <%= recaptcha_tags %>
+            </div>
+            <div class="col-xs-12 col-sm-6 text-right">
+                 <button class="c-button bg-blue-2 hv-blue-2-o" id="btn_submit" type="submit"><span>submit</span></button>
             </div>
           </div>
         <% end %>

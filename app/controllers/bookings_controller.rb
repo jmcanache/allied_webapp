@@ -120,7 +120,7 @@ class BookingsController < ApplicationController
   end
 
   def contact_email
-    if Notifier.contact_us(params).deliver
+    if verify_recaptcha and Notifier.contact_us(params).deliver
       respond_to do |format|
         format.json { render json: 1 }
       end

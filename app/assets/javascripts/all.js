@@ -976,4 +976,6 @@ $(function() {
     	$('.alert').fadeOut();
     })
 
+    $('.g-recaptcha').attr("data-callback", "appearSubmit");
+
 });

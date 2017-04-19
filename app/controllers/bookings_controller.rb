@@ -13,6 +13,10 @@ class BookingsController < ApplicationController
   end
 
   def create
+    if !verify_recaptcha
+      return redirect_to :action => 'new', alert: "Recaptcha failed"
+    end
+
     records_overlaping = Booking.in_range(booking_params[:datein],booking_params[:dateout], booking_params[:hotel_id])
     records_overlaping_airline = BookingsAirline.in_range(booking_params[:datein],booking_params[:dateout], booking_params[:hotel_id])
     new_booking = false

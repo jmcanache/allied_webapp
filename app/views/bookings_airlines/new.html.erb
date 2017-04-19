@@ -37,11 +37,16 @@
       <div class="col-sm-8"><%= b.label :comments %><%= b.text_area :comments, class: "form-control", placeholder: "Let us know if you need anything else."%></div>
     </div>
     <div class="form-group">
-      <div class="col-xs-3">
-        <p class="price-fix">Total price: <span id="price_total">0.00</span>$</p>
+      <div class="col-md-4 col-sm-8">
+        <%= recaptcha_tags %>
       </div>
-      <div class="col-sm-5">
-        <%= b.submit "Create Booking", class: "btn btn-primary pull-right", remote: true %>
+      <div class="col-md-4 col-sm-8">
+        <div class="col-xs-12 price_button">
+          <p class="price-fix pull-right">Total price: <span id="price_total">0.00</span>$</p>
+        </div>
+        <div class="col-xs-12 price_button">
+          <%= b.submit "Create Booking", class: "btn btn-primary pull-right btn_submit_form", remote: true %>
+        </div>
       </div>
     </div>
   <% end %>
@@ -115,4 +120,7 @@
     }
 
   });
+  function appearSubmit(){
+    $('.btn_submit_form').fadeIn();
+  }
 </script>

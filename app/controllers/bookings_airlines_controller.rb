@@ -7,6 +7,10 @@ class BookingsAirlinesController < ApplicationController
 	end
 
 	def create
+		if !verify_recaptcha
+	      return redirect_to :action => 'new', alert: "Recaptcha failed"
+	    end
+
 		records_overlaping = Booking.in_range(booking_params[:datein],booking_params[:dateout], booking_params[:hotel_id])
 		records_overlaping_airline = BookingsAirline.in_range(booking_params[:datein],booking_params[:dateout], booking_params[:hotel_id])
 	    new_booking = false
@@ -56,6 +60,9 @@ class BookingsAirlinesController < ApplicationController
 	        #guest_recipient = [airline.email, airline.name]
 	        hotel_recipient = [hotel.email, hotel.name]
 	        allied_recipient = ['m.rolo@allied-hospitality.com, j.santiago@allied-hospitality.com', 'Allied Hospitality']
+	        
+	        #allied_recipient = ['canache39@gmail.com', 'Allied Hospitality']
+        	#hotel_recipient = ['canache39@gmail.com', hotel.name]
 
 	        Notifier.send_booking_request_airline(hotel_recipient[0], hotel_recipient[1], @booking, hotel.name).deliver_now
 	        #Notifier.send_booking_request_airline(guest_recipient[0], guest_recipient[1], @booking, hotel.name).deliver_now

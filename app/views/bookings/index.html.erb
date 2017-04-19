@@ -507,7 +507,7 @@ style.firebugResetStyles {
                 <%= recaptcha_tags %>
             </div>
             <div class="col-xs-12 col-sm-6 text-right">
-                 <button class="c-button bg-blue-2 hv-blue-2-o" id="btn_submit" type="submit"><span>submit</span></button>
+                 <button class="c-button bg-blue-2 hv-blue-2-o btn_submit_contac" id="btn_submit" type="submit"><span>submit</span></button>
             </div>
           </div>
         <% end %>
@@ -568,6 +568,9 @@ style.firebugResetStyles {
 
 <script>
   new WOW().init();
+  function appearSubmit(){
+    $('.btn_submit_contac').fadeIn();
+  }
 </script>
 
 

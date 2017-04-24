@@ -9,7 +9,7 @@ class BookingsController < ApplicationController
     @booking.build_creditcard
   	@hotels = Hotel.all.order(:name)
     @first_hotel = @hotels.first
-    @airline = Airline.all.order(:name)
+    @airline = Airline.all.order(:name) 
   end
 
   def create
